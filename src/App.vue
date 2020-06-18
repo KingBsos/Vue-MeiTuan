@@ -1,28 +1,78 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="shadow">
+      <div class="padding-x-x top">
+        <PageTopNav />
+      </div>
+      <div class="padding-x-x top2">
+        <HeaderSearch />
+      </div>
+    </div>
+    <div class="padding-x-x layout-main-body">
+      <TopMainBody />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageTopNav from "./components/PageTopNav.vue";
+import HeaderSearch from "./components/HeaderSearch.vue";
+import TopMainBody from "./components/TopMainBody.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {};
+  },
   components: {
-    HelloWorld
-  }
-}
+    PageTopNav,
+    HeaderSearch,
+    TopMainBody,
+    Footer
+  },
+  computed: {},
+  methods: {}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+}
+hr {
+  border: 0px;
+  border-top: 1px solid rgb(224, 224, 224);
+}
+a {
+  text-decoration: none;
+  color: rgb(124, 124, 124);
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+a:hover {
+  color: rgb(42, 255, 156);
+}
+
+.padding-x-x {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.shadow {
+  box-shadow: 0 0 20px rgba(192, 192, 192, 0.575);
+}
+
+.top {
+  background-color: #eeeeee9a;
+}
+.top2 {
+  padding-bottom: 50px;
+}
+.layout-main-body {
+  margin-top: -58px;
+  padding-top: 15px;
 }
 </style>
