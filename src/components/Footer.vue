@@ -59,7 +59,7 @@ footer {
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    font-size: 10px;
+    font-size: 14px;
 }
 .custom-margin {
     margin-top: 15px;

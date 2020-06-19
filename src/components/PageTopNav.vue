@@ -75,7 +75,7 @@ export default {
 
 /deep/ {
     .nav-link, .nav-child-link {
-        font-size: 12px;
+        font-size: 14px;
         border: 1px solid #ffffff00;
         border-top: 0;
         border-bottom: 0;
@@ -86,7 +86,7 @@ export default {
         color: rgb(42, 255, 156);
         border-color: #ccc;
         background-color: #fff;
-        box-shdow: 0 -1px 2px #ccc;
+        box-shadow: 0 -1px 2px #ccc;
     }
     .nav-child-link {
         border: 0;
@@ -101,7 +101,7 @@ export default {
     padding: 5px 30px;
 }
 .menu-item-header {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     color: rgb(0, 255, 136);
     padding: 10px 15px;

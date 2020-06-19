@@ -72,7 +72,7 @@ a:hover {
   padding-bottom: 50px;
 }
 .layout-main-body {
-  margin-top: -58px;
   padding-top: 15px;
+  background-color: rgba(235, 235, 235, 0.829);
 }
 </style>
