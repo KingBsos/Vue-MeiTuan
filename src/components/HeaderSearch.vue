@@ -63,12 +63,13 @@ export default {
     border-radius: 5px;
 }
 .head-search input {
+    width: 300px;
     font-size: 14px;
     padding: 5px 10px;
     border: 0;
 }
 .head-search button {
-    padding: 5px 20px;
+    padding: 10px 20px;
     border: 0;
     color: #fff;
     background-color: rgb(19, 235, 152);

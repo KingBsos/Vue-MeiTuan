@@ -58,7 +58,8 @@
 }
 .vc-head-link-style {
     padding:5px 0;
-    font-size:1.5em;
+    font-size:1.4em;
+    font-weight: 400;
 }
 .vc-spacer {
     padding: 1px;
@@ -75,32 +76,27 @@
     display: flex;
 }
 .vc-before-each {
-    padding:1px 3px;
-    font-size: 18px;
-    color: rgba(238, 238, 238, 0.527);
+    padding: 0 0 0 3px;
+    font-size: 20px;
     display: flex;
     align-items: center;
 }
 .vc-after-each {
+    display: flex;
+    align-items: center;
     padding-right: 10px;
 }
 
 /* CoverCard */
 .vc-card-body {
-    position: relative;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
+
 .vc-carousel-img {
     width: 100%;
     height: 100%;
-}
-.vc-cover-body {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
 }

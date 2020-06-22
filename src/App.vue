@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="padding-x-x layout-main-body">
-      <TopMainBody />
+      <router-view></router-view>
     </div>
     <Footer />
   </div>
@@ -18,7 +18,6 @@
 <script>
 import PageTopNav from "./components/PageTopNav.vue";
 import HeaderSearch from "./components/HeaderSearch.vue";
-import TopMainBody from "./components/TopMainBody.vue";
 import Footer from "./components/Footer.vue";
 
 export default {
@@ -29,7 +28,6 @@ export default {
   components: {
     PageTopNav,
     HeaderSearch,
-    TopMainBody,
     Footer
   },
   computed: {},

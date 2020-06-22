@@ -1,7 +1,6 @@
 <template>
   <div>
-      <span>珠海</span>
-      <router-link to="/select/city">切换城市</router-link>
+      
   </div>
 </template>
 

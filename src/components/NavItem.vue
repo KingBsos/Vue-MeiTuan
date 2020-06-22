@@ -12,7 +12,7 @@ export default {
             require: true
         },
         linkStyle: {
-            type: String
+            type: [String, Array]
         }
     },
     computed: {
@@ -28,7 +28,7 @@ export default {
             attrs: {},
             props: {},
             domProps: {},
-            class: ['vc-link', this.linkStyle]
+            class: [].concat(this.linkStyle)
         };
         if(tag == 'img') {
             childElement = h('img', {
