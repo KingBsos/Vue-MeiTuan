@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Weather />
+    <Weather :city="city"/>
     <!-- <Navigation class="nav-init" :navList="RowNavData.navList"/> -->
     <Navigation
       class="nav-init"
@@ -96,6 +96,9 @@ import Navigation from "./Navigation.vue";
 import navListData from "../assets/top-nav-list.js";
 
 export default {
+  props: {
+    city: String
+  },
   data() {
     return {
       navList: navListData
@@ -115,7 +118,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
 }
 
 /deep/ {

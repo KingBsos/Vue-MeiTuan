@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="vc-ul" :style="{flexDirection: direction}">
+    <ul class="vc-ul" :style="{flexDirection: direction,flexWrap}">
       <li v-for="(item,index) in navList" :key="index" :class="['vc-nav', navStyle]">
         <NavItem
           v-if="autoHead && index == 0"
@@ -8,35 +8,33 @@
           :linkStyle="['vc-head-link-style'].concat(headStyle)"
         />
         <template v-else>
-          <NavItem
+          <span
+            :class="['vc-before-each'].concat(beforeEachStyle)"
             v-if="item.beforeEach || beforeEach"
-            :item="item.beforeEach || {value: beforeEach}"
-            :linkStyle="['vc-before-each'].concat(beforeEachStyle)"
+            v-html="item.beforeEach.value || beforeEach"
           />
-          <div class="center-each">
-            <NavItem
-              v-if="typeof item.value == 'string'"
-              :item="item"
-              :linkStyle="linkStyleClass(index)"
-            />
-            <template v-else v-for="(item2,index2) in item.value">
-              <NavItem :key="index2" :item="item2" :linkStyle="linkStyleClass(index)" />
-              <NavItem
-                v-if="index2 != item.value.length-1"
-                :key="index2-2*item.value.length"
-                :item="{value: spacer}"
-                :linkStyle="['vc-spacer', spacerStyle]"
-              >{{ spacer }}</NavItem>
-            </template>
-          </div>
           <NavItem
+            v-if="typeof item.value == 'string'"
+            :item="item"
+            :linkStyle="linkStyleClass(index)"
+          />
+          <template v-else v-for="(item2,index2) in item.value">
+            <NavItem :key="index2" :item="item2" :linkStyle="linkStyleClass(index)" />
+            <NavItem
+              v-if="index2 != item.value.length-1"
+              :key="index2-2*item.value.length"
+              :item="{value: spacer}"
+              :linkStyle="['vc-spacer', spacerStyle]"
+            >{{ spacer }}</NavItem>
+          </template>
+          <span
             v-if="item.afterEach || afterEach"
-            :item="item.afterEach || {value: afterEach}"
-            :linkStyle="['vc-after-each'].concat(afterEachStyle)"
+            v-html="item.afterEach || afterEach"
+            :class="['vc-after-each'].concat(afterEachStyle)"
           />
         </template>
 
-        <div v-if="$scopedSlots[index]" :class="['vc-child-navigation',childStyle]">
+        <div v-if="$scopedSlots[index]" :class="['vc-child-nav', defaultChildNavPosition, childNavStyle]">
           <slot :name="index" :childNav="item.childNav"></slot>
         </div>
       </li>
@@ -61,6 +59,13 @@ export default {
   computed: {
     useRouter() {
       return this.$router ? true : false;
+    },
+    defaultChildNavPosition() {
+      if(this.direction == 'column') {
+        return 'vc-child-nav-position-column';
+      } else {
+        return 'vc-child-nav-position';
+      }
     }
   },
   props: {
@@ -71,6 +76,10 @@ export default {
     direction: {
       type: String,
       default: "row"
+    },
+    flexWrap: {
+      type: String,
+      default: 'nowrap'
     },
     autoHead: {
       type: Boolean,
@@ -95,9 +104,8 @@ export default {
       type: String
     },
     headStyle: [String, Array],
-    childStyle: {
-      type: String,
-      default: "vc-child-style"
+    childNavStyle: {
+      type: String
     },
     spacerStyle: {
       type: String
@@ -107,7 +115,7 @@ export default {
   },
   methods: {
     linkStyleClass(name) {
-      let base = ['vc-link'];
+      let base = ["vc-link"];
       if (this.$scopedSlots[name]) {
         return base.concat(this.linkStyle);
       } else {

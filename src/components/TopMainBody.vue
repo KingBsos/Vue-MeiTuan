@@ -12,7 +12,12 @@
         beforeEachStyle="iconfont"
         afterEachStyle="main-body-after-each"
         spacerStyle="main-body-spacer"
-      />
+        childNavStyle="main-body-child-nav"
+      >
+        <template #1>
+          <h1>sdf</h1>
+        </template>
+      </Navigation>
     </div>
     <div class="body-right">
       <div class="body-right-top">
@@ -74,7 +79,7 @@
           <div class="qr-code">
             <CoverCard>
               <div class="qr-info-body">
-                <img :src="img2" />
+                <img src="https://s1.meituan.net/bs/fe-web-meituan/60ac9a0/img/download-qr.png" />
                 <p>美团APP手机版</p>
               </div>
             </CoverCard>
@@ -149,6 +154,7 @@ export default {
   font-size: 14px;
   color: #fff;
   background-color: rgba(0, 185, 129, 0.671);
+  z-index: 1;
 }
 .container > .body-right {
   width: 80%;
@@ -167,6 +173,7 @@ export default {
 .body-right-bottom {
   position: absolute;
   padding: 58px 0px 0;
+  width: 100%;
   height: 100%;
   z-index: 0;
 }
@@ -190,16 +197,30 @@ export default {
   height: 100%;
   padding: 5px;
 }
+.carousel-wrapper,
+.advert-top-1,
+.user-info {
+  padding-top: 0;
+}
+.advert-bottom-1,
+.advert-bottom-2,
+.advert-bottom-3,
+.qr-code {
+  padding-bottom: 0;
+}
 .carousel-wrapper {
   width: 60%;
 }
-.advert-bottom-1, .advert-bottom-2 {
+.advert-bottom-1,
+.advert-bottom-2 {
   width: 30%;
 }
-.advert-top-1, .advert-bottom-3 {
+.advert-top-1,
+.advert-bottom-3 {
   width: 20%;
 }
-.user-info, .qr-code {
+.user-info,
+.qr-code {
   width: 30%;
 }
 .advert-text {
@@ -239,24 +260,22 @@ button {
   .linkStyle:hover {
     color: rgb(29, 214, 177);
   }
-  .main-body-nav {
-    justify-content: space-between;
-  }
   .main-body-head {
     flex: 1;
     padding: 15px 10px;
     font-weight: 300;
     background-color: rgba(43, 184, 118, 0.185);
   }
+  .main-body-nav {
+    position: static;
+  }
   .main-body-link {
-    padding: 7px 3px;
+    padding: 4px 3px;
     font-size: 14px;
     color: #fff;
   }
   .main-body-spacer {
-    display: flex;
     margin: 0 -1px;
-    align-items: center;
   }
   .main-body-nav:not(:first-child):hover {
     .main-body-link {
@@ -264,6 +283,9 @@ button {
     }
     color: #333;
     background-color: #fff;
+  }
+  .main-body-child-nav {
+    top: 56px;
   }
 }
 </style>

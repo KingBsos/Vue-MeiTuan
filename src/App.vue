@@ -2,14 +2,14 @@
   <div id="app">
     <div class="shadow">
       <div class="padding-x-x top">
-        <PageTopNav />
+        <PageTopNav :city="city"/>
       </div>
       <div class="padding-x-x top2">
         <HeaderSearch />
       </div>
     </div>
     <div class="padding-x-x layout-main-body">
-      <router-view></router-view>
+      <router-view v-model="city"></router-view>
     </div>
     <Footer />
   </div>
@@ -23,7 +23,9 @@ import Footer from "./components/Footer.vue";
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      city: '珠海'
+    };
   },
   components: {
     PageTopNav,
