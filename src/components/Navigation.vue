@@ -2,15 +2,17 @@
   <div>
     <ul :class="_navClass">
       <li v-for="(item,index) in navList" :key="index" :class="__itemClass(index)">
+        <i v-if="frontSymbolClass" :class="__frontSymbolClass(index)"></i>
         <NavItem v-if="typeof item.value == 'string'" :item="item" :linkClass="linkClass"></NavItem>
         <template v-else v-for="(item2,index2) in item.value">
           <NavItem :key="index2" :item="item2" :linkClass="linkClass" />
           <span
             v-if="index2 < item.value.length - 1"
             :key="-index2 - 1"
-            :class="spacerClass"
+            :class="spacerClass || linkClass"
           >{{ spacer }}</span>
         </template>
+        <span v-if="postSymbol" :class="_postSymbolClass">{{ postSymbol }}</span>
         <div v-if="hasChildMap[index]" :class="_childNavClass">
           <slot :name="index" :childNav="item.childNav">
             <Navigation
@@ -48,7 +50,10 @@ export default {
     },
     spacer: {
       type: String,
-      default: '/'
+      default: "/"
+    },
+    postSymbol: {
+      type: String
     },
     itemClass: {
       type: [String, Array]
@@ -58,6 +63,16 @@ export default {
     },
     spacerClass: {
       type: [String, Array]
+    },
+    frontSymbolClass: {
+      type: [String, Array],
+    },
+    extraFrontSymbolClass: {
+      type: Array,
+      default: () => []
+    },
+    postSymbolClass: {
+      type: String
     },
     childNavClass: {
       type: [String, Array]
@@ -78,8 +93,13 @@ export default {
     _itemClass() {
       return ["vc-nav-item"].concat(this.itemClass);
     },
+    _postSymbolClass() {
+      return this.postSymbolClass
+        ? this.postSymbolClass
+        : ["vc-nav-post-symbol"].concat(this.linkClass);
+    },
     _childNavClass() {
-      let position = this.vertical ? 'vc-child-nav-position-column' : '';
+      let position = this.vertical ? "vc-child-nav-position-column" : "";
       return ["vc-child-nav"].concat(position, this.childNavClass);
     },
     _childItemClass() {
@@ -89,14 +109,18 @@ export default {
       return this.childLinkClass || this.linkClass;
     },
     hasChildMap() {
-      return this.navList.map((item) => {
+      return this.navList.map(item => {
         return item.childNav && item.childNav.length != 0 ? true : false;
       });
     }
   },
   methods: {
     __itemClass(index) {
-      return this._itemClass.concat(this.hasChildMap[index] ? 'has-child' : '');
+      return this._itemClass.concat(this.hasChildMap[index] ? "has-child" : "");
+    },
+    __frontSymbolClass(index) {
+      if(this.frontSymbolClass)
+      return [].concat(this.frontSymbolClass).concat(this.extraFrontSymbolClass[index]);
     }
   }
 };
@@ -120,6 +144,10 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+}
+.vc-nav-post-symbol {
+  margin: 0 5px;
+  margin-left: auto;
 }
 .vc-child-nav {
   width: 0;

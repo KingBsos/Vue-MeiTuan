@@ -1,11 +1,18 @@
 <template>
   <div class="container">
     <div class="body-left">
+      <div class="all-nav">全部分类</div>
       <Navigation
         :navList="navList"
         :vertical="true"
+        postSymbol=">"
         itemClass="main-body-nav"
         linkClass="main-body-link"
+        spacerClass="main-body-spacer"
+        :frontSymbolClass="['iconfont', 'custom-font']"
+        :extraFrontSymbolClass="['icon-bijiben', 'icon-huangguan', 'icon-bianzu129','icon-liwu','icon-pinglun','icon-shanchu','icon-weizhi','icon-shijian','icon-shouye','icon-yinhangka','icon-shoucang','icon-tupian','icon-zuanshi','icon-zhibo',
+'icon-qianbao','icon-rili'
+]"
       ></Navigation>
     </div>
     <div class="body-right">
@@ -13,7 +20,10 @@
         <div class="advert-top">
           <div class="carousel-wrapper">
             <el-carousel class="h-100" height="100%">
-              <el-carousel-item v-for="(item,index) in $root.allData.carouselPics || []" :key="index">
+              <el-carousel-item
+                v-for="(item,index) in $root.allData.carouselPics || []"
+                :key="index"
+              >
                 <img class="h-100" :src="item" />
               </el-carousel-item>
             </el-carousel>
@@ -47,7 +57,9 @@
               <div class="qr-info-body">
                 <img src="https://s1.meituan.net/bs/fe-web-meituan/60ac9a0/img/download-qr.png" />
                 <p>美团APP手机版</p>
-                <p class="text-size-12"><span class="text-danger">1元起</span>吃喝玩乐</p>
+                <p class="text-size-12">
+                  <span class="text-danger">1元起</span>吃喝玩乐
+                </p>
               </div>
             </CoverCard>
           </div>
@@ -104,7 +116,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/index.css';
+@import "../assets/css/index.css";
+@import "../assets/css/font/iconfont.css";
+.all-nav {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-bottom: 15px;
+  font-weight: 700;
+}
 .container {
   display: flex;
   margin-top: -58px;
@@ -112,9 +133,8 @@ export default {
 }
 .container > .body-left {
   width: 20%;
-  font-size: 14px;
-  color: #fff;
-  background-color: rgba(0, 185, 129, 0.671);
+  border: 1px solid rgb(221, 221, 221);
+  background-color: #fff;
 }
 .container > .body-right {
   width: 80%;
@@ -225,7 +245,7 @@ export default {
     padding: 5px 20px;
     color: rgb(0, 0, 0);
   }
-  .itemStyle:hover .linkStyle{
+  .itemStyle:hover .linkStyle {
     color: #ed1e24;
   }
   .itemStyle:nth-child(1):hover .linkStyle {
@@ -237,35 +257,26 @@ export default {
   .itemStyle:nth-child(5):hover .linkStyle {
     color: #fe8c00;
   }
-  .linkStyle:hover {
-    color: rgb(29, 214, 177);
+  .main-body-nav:hover {
+    background-color: rgba(255, 150, 0, 0.08);
+    .main-body-link,
+    .main-body-spacer {
+      color: #222222;
+    }
   }
-  .main-body-head {
-    flex: 1;
-    padding: 15px 10px;
-    font-weight: 300;
-    background-color: rgba(43, 184, 118, 0.185);
-  }
-  .main-body-nav {
-    position: static;
-  }
-  .main-body-link {
-    padding: 4px 3px;
-    font-size: 14px;
-    color: #fff;
+  .main-body-link,
+  .main-body-spacer {
+    font-size: 13px;
+    color: #646464;
+    padding: 4px 0;
   }
   .main-body-spacer {
-    margin: 0 -1px;
+    padding: 0 7px;
   }
-  .main-body-nav:not(:first-child):hover {
-    .main-body-link {
-      color: rgb(26, 26, 26);
-    }
-    color: #333;
-    background-color: #fff;
-  }
-  .main-body-child-nav {
-    top: 56px;
+  .custom-font {
+    width: 30px;
+    text-align: center;
+    font-size: 12px;
   }
 }
 </style>

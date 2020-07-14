@@ -1,8 +1,5 @@
 export default [
     {
-        value: '全部分类'
-    },
-    {
         beforeEach: {
             value: '&#xe6eb;'
         },

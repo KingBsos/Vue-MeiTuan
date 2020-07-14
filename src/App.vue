@@ -40,8 +40,12 @@ export default {
 <style>
 @import './assets/css/index.css';
 .padding-x-x {
-  padding-left: 100px;
-  padding-right: 100px;
+  padding: 0 60px;
+}
+@media (max-width: 1000px) {
+.padding-x-x {
+  padding: 0px;
+}
 }
 .shadow {
   box-shadow: 0 0 20px #ccc;

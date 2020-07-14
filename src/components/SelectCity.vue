@@ -80,7 +80,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/component.css";
 .container {
   padding: 10px;
   background-color: #fff;
