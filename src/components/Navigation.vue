@@ -1,41 +1,25 @@
 <template>
   <div>
-    <ul class="vc-ul" :style="{flexDirection: direction,flexWrap}">
-      <li v-for="(item,index) in navList" :key="index" :class="['vc-nav', navStyle]">
-        <NavItem
-          v-if="autoHead && index == 0"
-          :item="item"
-          :linkStyle="['vc-head-link-style'].concat(headStyle)"
-        />
-        <template v-else>
+    <ul :class="_navClass">
+      <li v-for="(item,index) in navList" :key="index" :class="__itemClass(index)">
+        <NavItem v-if="typeof item.value == 'string'" :item="item" :linkClass="linkClass"></NavItem>
+        <template v-else v-for="(item2,index2) in item.value">
+          <NavItem :key="index2" :item="item2" :linkClass="linkClass" />
           <span
-            :class="['vc-before-each'].concat(beforeEachStyle)"
-            v-if="item.beforeEach || beforeEach"
-            v-html="item.beforeEach.value || beforeEach"
-          />
-          <NavItem
-            v-if="typeof item.value == 'string'"
-            :item="item"
-            :linkStyle="linkStyleClass(index)"
-          />
-          <template v-else v-for="(item2,index2) in item.value">
-            <NavItem :key="index2" :item="item2" :linkStyle="linkStyleClass(index)" />
-            <NavItem
-              v-if="index2 != item.value.length-1"
-              :key="index2-2*item.value.length"
-              :item="{value: spacer}"
-              :linkStyle="['vc-spacer', spacerStyle]"
-            >{{ spacer }}</NavItem>
-          </template>
-          <span
-            v-if="item.afterEach || afterEach"
-            v-html="item.afterEach || afterEach"
-            :class="['vc-after-each'].concat(afterEachStyle)"
-          />
+            v-if="index2 < item.value.length - 1"
+            :key="-index2 - 1"
+            :class="spacerClass"
+          >{{ spacer }}</span>
         </template>
-
-        <div v-if="$scopedSlots[index]" :class="['vc-child-nav', defaultChildNavPosition, childNavStyle]">
-          <slot :name="index" :childNav="item.childNav"></slot>
+        <div v-if="hasChildMap[index]" :class="_childNavClass">
+          <slot :name="index" :childNav="item.childNav">
+            <Navigation
+              :vertical="true"
+              :navList="item.childNav"
+              :itemClass="_childItemClass"
+              :linkClass="_childLinkClass"
+            />
+          </slot>
         </div>
       </li>
     </ul>
@@ -43,89 +27,120 @@
 </template>
 
 <script>
-// navList: [
-//     {
-//         [type: String],
-//         value: String|Array,
-//         [url: String]
-//     }
-// ]
 import NavItem from "./NavItem.vue";
 export default {
   name: "Navigation",
   components: {
     NavItem
   },
-  computed: {
-    useRouter() {
-      return this.$router ? true : false;
-    },
-    defaultChildNavPosition() {
-      if(this.direction == 'column') {
-        return 'vc-child-nav-position-column';
-      } else {
-        return 'vc-child-nav-position';
-      }
-    }
-  },
   props: {
     navList: {
       type: Array,
       require: true
     },
-    direction: {
-      type: String,
-      default: "row"
-    },
-    flexWrap: {
-      type: String,
-      default: 'nowrap'
-    },
-    autoHead: {
+    vertical: {
       type: Boolean,
       default: false
     },
-    beforeEach: {
-      type: String,
-      default: ""
-    },
-    afterEach: {
-      type: String,
-      default: ""
+    multiLine: {
+      type: Boolean,
+      default: false
     },
     spacer: {
       type: String,
-      default: "/"
+      default: '/'
     },
-    navStyle: {
-      type: String
+    itemClass: {
+      type: [String, Array]
     },
-    linkStyle: {
-      type: String
+    linkClass: {
+      type: [String, Array]
     },
-    headStyle: [String, Array],
-    childNavStyle: {
-      type: String
+    spacerClass: {
+      type: [String, Array]
     },
-    spacerStyle: {
-      type: String
+    childNavClass: {
+      type: [String, Array]
     },
-    beforeEachStyle: [String, Array],
-    afterEachStyle: [String, Array]
+    childItemClass: {
+      type: [String, Array]
+    },
+    childLinkClass: {
+      type: [String, Array]
+    }
+  },
+  computed: {
+    _navClass() {
+      let vertical = this.vertical ? "vc-vertical" : "";
+      let multiLine = this.multiLine ? "vc-multi-line" : "";
+      return ["vc-nav", vertical, multiLine];
+    },
+    _itemClass() {
+      return ["vc-nav-item"].concat(this.itemClass);
+    },
+    _childNavClass() {
+      let position = this.vertical ? 'vc-child-nav-position-column' : '';
+      return ["vc-child-nav"].concat(position, this.childNavClass);
+    },
+    _childItemClass() {
+      return ["vc-nav-item"].concat(this.childItemClass);
+    },
+    _childLinkClass() {
+      return this.childLinkClass || this.linkClass;
+    },
+    hasChildMap() {
+      return this.navList.map((item) => {
+        return item.childNav && item.childNav.length != 0 ? true : false;
+      });
+    }
   },
   methods: {
-    linkStyleClass(name) {
-      let base = ["vc-link"];
-      if (this.$scopedSlots[name]) {
-        return base.concat(this.linkStyle);
-      } else {
-        return base.concat([this.linkStyle, this.linkStyle + "-restore"]);
-      }
+    __itemClass(index) {
+      return this._itemClass.concat(this.hasChildMap[index] ? 'has-child' : '');
     }
   }
 };
 </script>
 
-<style>
-@import "../assets/css/component.css";
+<style scoped>
+.vc-vertical {
+  flex-direction: column;
+}
+.vc-multi-line {
+  flex-wrap: nowrap;
+}
+.vc-nav {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  z-index: 0;
+}
+.vc-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.vc-child-nav {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.3s;
+  border: 1px solid rgb(206, 206, 206);
+  box-shadow: 0px 0px 2px rgb(206, 206, 206);
+  background-color: #fff;
+  top: 100%;
+}
+.vc-child-nav-position-column {
+  left: 100%;
+  top: 0;
+}
+.vc-nav-item:hover .vc-child-nav {
+  opacity: 1;
+  width: auto;
+  height: auto;
+}
 </style>

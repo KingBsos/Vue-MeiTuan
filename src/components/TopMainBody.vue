@@ -3,111 +3,71 @@
     <div class="body-left">
       <Navigation
         :navList="navList"
-        direction="column"
-        :autoHead="true"
-        afterEach=">"
-        navStyle="main-body-nav"
-        linkStyle="main-body-link"
-        headStyle="main-body-head"
-        beforeEachStyle="iconfont"
-        afterEachStyle="main-body-after-each"
-        spacerStyle="main-body-spacer"
-        childNavStyle="main-body-child-nav"
-      >
-        <template #1>
-          <h1>sdf</h1>
-        </template>
-      </Navigation>
+        :vertical="true"
+        itemClass="main-body-nav"
+        linkClass="main-body-link"
+      ></Navigation>
     </div>
     <div class="body-right">
-      <div class="body-right-top">
-        <Navigation :navList="rightTopNavlist" linkStyle="linkStyle" />
-      </div>
       <div class="body-right-bottom">
         <div class="advert-top">
           <div class="carousel-wrapper">
-            <el-carousel :style="{height: '100%',width: '100%'}" height="100%">
-              <el-carousel-item v-for="(item,index) in carouselImg" :key="index">
-                <img class="vc-carousel-img" :src="item" />
+            <el-carousel class="h-100" height="100%">
+              <el-carousel-item v-for="(item,index) in $root.allData.carouselPics || []" :key="index">
+                <img class="h-100" :src="item" />
               </el-carousel-item>
             </el-carousel>
           </div>
           <div class="advert-top-1">
-            <CoverCard :imgUrl="img1">
-              <div class="advert-text">
-                <h4>休闲生活</h4>
-                <p>唱歌按摩 乐享预定</p>
-              </div>
-            </CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[2]"></CoverCard>
           </div>
           <div class="user-info">
             <CoverCard>
               <div class="user-info-body">
-                <img :src="img4" />
-                <h1>KingBsos</h1>
-                <button>注销</button>
-                <button>立即登录</button>
+                <img :src="$root.allData.headImg" />
+                <p>KingBsos</p>
+                <a class="button" href="#ksdf">注销</a>
+                <a class="button" href="#ksdfj">立即登录</a>
               </div>
             </CoverCard>
           </div>
         </div>
         <div class="advert-bottom">
           <div class="advert-bottom-1">
-            <CoverCard :imgUrl="img3">
-              <div class="advert-text">
-                <h4>休闲生活</h4>
-                <p>唱歌按摩 乐享预定</p>
-              </div>
-            </CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[0]"></CoverCard>
           </div>
           <div class="advert-bottom-2">
-            <CoverCard :imgUrl="img4">
-              <div class="advert-text">
-                <h4>休闲生活</h4>
-                <p>唱歌按摩 乐享预定</p>
-              </div>
-            </CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[1]"></CoverCard>
           </div>
           <div class="advert-bottom-3">
-            <CoverCard :imgUrl="img2">
-              <div class="advert-text">
-                <h4>休闲生活</h4>
-                <p>唱歌按摩 乐享预定</p>
-              </div>
-            </CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[3]"></CoverCard>
           </div>
           <div class="qr-code">
             <CoverCard>
               <div class="qr-info-body">
                 <img src="https://s1.meituan.net/bs/fe-web-meituan/60ac9a0/img/download-qr.png" />
                 <p>美团APP手机版</p>
+                <p class="text-size-12"><span class="text-danger">1元起</span>吃喝玩乐</p>
               </div>
             </CoverCard>
           </div>
         </div>
+      </div>
+      <div class="body-right-top">
+        <Navigation :navList="rightTopNavlist" itemClass="itemStyle" linkClass="linkStyle" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import img1 from "../assets/pic/9.jpg";
-import img2 from "../assets/pic/9.jpg";
-import img3 from "../assets/pic/10.jpg";
-import img4 from "../assets/pic/11.jpg";
 import navList from "../assets/main-body-nav-list.js";
-import carouselImg from "../assets/carousel.js";
 import Navigation from "./Navigation.vue";
 import CoverCard from "./CoverCard.vue";
 export default {
   data() {
     return {
       navList,
-      carouselImg,
-      img1,
-      img2,
-      img3,
-      img4,
       rightTopNavlist: [
         {
           value: "美团外卖",
@@ -144,6 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/css/index.css';
 .container {
   display: flex;
   margin-top: -58px;
@@ -154,7 +115,6 @@ export default {
   font-size: 14px;
   color: #fff;
   background-color: rgba(0, 185, 129, 0.671);
-  z-index: 1;
 }
 .container > .body-right {
   width: 80%;
@@ -175,7 +135,6 @@ export default {
   padding: 58px 0px 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
 }
 .advert-top,
 .advert-bottom {
@@ -229,7 +188,6 @@ export default {
 }
 .user-info-body,
 .qr-info-body {
-  padding: 15px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -237,25 +195,47 @@ export default {
   background-color: #fff;
 }
 .user-info-body img {
-  width: 45px;
-  height: 45px;
+  width: 55px;
+  height: 55px;
+  margin-top: 30px;
+  margin-bottom: 5px;
   border-radius: 50%;
 }
-.qr-info-body img {
-  width: 80px;
-  height: 80px;
+.user-info-body .button {
+  display: inline-block;
+  width: 60%;
+  margin: 10px 0;
+  padding: 5px 0;
+  color: #333;
+  text-align: center;
+  border: 1px solid rgb(231, 231, 231);
+  border-radius: 24px;
+  transition: all 0.3s;
 }
-button {
-  border: 1px solid rgba(209, 209, 209, 0.719);
-  margin: 10px;
-  padding: 10px 20px;
-  border-radius: 50px;
+.user-info-body .button:hover {
+  background-color: rgb(207, 207, 207);
+}
+.qr-info-body img {
+  height: 70%;
 }
 /deep/ {
   .linkStyle {
     font-size: 16px;
-    font-weight: 900;
+    font-weight: 700;
+    padding: 5px 20px;
     color: rgb(0, 0, 0);
+  }
+  .itemStyle:hover .linkStyle{
+    color: #ed1e24;
+  }
+  .itemStyle:nth-child(1):hover .linkStyle {
+    color: #fbc700;
+  }
+  .itemStyle:nth-child(4):hover .linkStyle {
+    color: #fbc700;
+  }
+  .itemStyle:nth-child(5):hover .linkStyle {
+    color: #fe8c00;
   }
   .linkStyle:hover {
     color: rgb(29, 214, 177);

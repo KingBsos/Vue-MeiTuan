@@ -19,7 +19,7 @@
 import PageTopNav from "./components/PageTopNav.vue";
 import HeaderSearch from "./components/HeaderSearch.vue";
 import Footer from "./components/Footer.vue";
-
+import './mockData.js';
 export default {
   name: "App",
   data() {
@@ -38,35 +38,17 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-hr {
-  border: 0px;
-  border-top: 1px solid rgb(224, 224, 224);
-}
-a {
-  text-decoration: none;
-  color: rgb(124, 124, 124);
-}
-body {
-  margin: 0;
-  padding: 0;
-}
-a:hover {
-  color: rgb(42, 255, 156);
-}
-
+@import './assets/css/index.css';
 .padding-x-x {
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 .shadow {
-  box-shadow: 0 0 20px rgba(192, 192, 192, 0.575);
+  box-shadow: 0 0 20px #ccc;
 }
 
 .top {
-  background-color: #eeeeee9a;
+  background-color: #f8f8f8;
 }
 .top2 {
   padding-bottom: 50px;

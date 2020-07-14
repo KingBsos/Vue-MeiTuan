@@ -1,7 +1,6 @@
 <template>
   <div class="h-100">
-    <div class="container">
-      <img class="container-img" :src="imgUrl" />
+    <div class="container h-100" :style="{backgroundImage: _imgUrl}">
       <div class="vc-card-body">
         <slot></slot>
       </div>
@@ -12,20 +11,30 @@
 <script>
 export default {
   props: {
-    imgUrl: String
+    imgUrl: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    _imgUrl() {
+      return 'url(' + this.imgUrl + ')';
+    }
   }
 };
 </script>
 
 <style scoped>
-@import "../assets/css/component.css";
+@import "../assets/css/index.css";
 .container {
   position: relative;
-  height: 100%;
-  z-index: 0;
+  background-size: 100%;
 }
-.container-img {
-  width: 100%;
-  height: 100%;
+.vc-card-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>

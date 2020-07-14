@@ -65,6 +65,23 @@ export default [
                 url: '#1'
             }
         ]
+    },{
+        value: '美团规则',
+        url: '#1',
+        childNav: [
+            {
+                value: '规则中心',
+                url: '#22'
+            },
+            {
+                value: '规则目录',
+                url: '#22'
+            },
+            {
+                value: '规则评议院',
+                url: '#22'
+            }
+        ]
     },
     {
         value: '网站导航',

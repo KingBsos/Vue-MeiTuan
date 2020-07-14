@@ -1,52 +1,33 @@
 <template>
   <div class="container">
-    <Weather :city="city"/>
+    <Weather :city="city" />
     <!-- <Navigation class="nav-init" :navList="RowNavData.navList"/> -->
     <Navigation
-      class="nav-init"
       :navList="navList"
-      :reduction="true"
-      navStyle="nav-item"
-      linkStyle="nav-link"
+      itemClass="nav-item"
+      linkClass="nav-link"
+      childNavClass="child-nav"
+      childLinkClass="nav-child-link"
     >
-      <template #0="{childNav}">
-        <Navigation
-          direction="column"
-          :navList="childNav"
-          navStyle="nav-item"
-          linkStyle="nav-child-link"
-        />
-      </template>
-      <template #2="{childNav}">
-        <Navigation
-          direction="column"
-          :navList="childNav"
-          navStyle="nav-item"
-          linkStyle="nav-child-link"
-        />
-      </template>
-      <template #3="{childNav}">
+      <template #4="{childNav}">
         <div class="child-menu">
           <div>
             <h3 class="menu-item-header">酒店旅游</h3>
             <div class="menu-item-body">
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[0]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[1]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[2]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
             </div>
           </div>
@@ -54,16 +35,14 @@
             <h3 class="menu-item-header">吃美食</h3>
             <div class="menu-item-body">
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[3]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[4]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
             </div>
           </div>
@@ -71,17 +50,16 @@
             <h3 class="menu-item-header">看电影</h3>
             <div class="menu-item-body">
               <Navigation
-                direction="column"
+                :vertical="true"
                 :navList="childNav[5]"
-                navStyle="nav-item"
-                linkStyle="nav-child-link"
+                linkClass="nav-child-link"
               />
             </div>
           </div>
           <div>
             <h3 class="menu-item-header">手机应用</h3>
             <div class="menu-item-body">
-              <Navigation :navList="childNav[6]" />
+              <Navigation :navList="childNav[6]" linkClass="img-link"/>
             </div>
           </div>
         </div>
@@ -93,7 +71,7 @@
 <script>
 import Weather from "./Weather.vue";
 import Navigation from "./Navigation.vue";
-import navListData from "../assets/top-nav-list.js";
+import navList from "../assets/top-nav-list.js";
 
 export default {
   props: {
@@ -101,7 +79,7 @@ export default {
   },
   data() {
     return {
-      navList: navListData
+      navList: navList
     };
   },
   computed: {},
@@ -124,21 +102,32 @@ export default {
 /deep/ {
   .nav-link,
   .nav-child-link {
-    font-size: 14px;
+    padding: 10px 15px;
+    font-size: 12px;
     border: 1px solid rgba(0, 0, 0, 0);
     border-top: 0;
     border-bottom: 0;
     flex: 1;
     text-align: center;
   }
-  .nav-item:hover .nav-link:not(.nav-link-restore) {
-    color: rgb(42, 255, 156);
+  .nav-child-link {
+    border: 0;
+  }
+  .has-child.nav-item:hover .nav-link {
     border-color: #ccc;
     background-color: #fff;
     box-shadow: 0 -1px 2px #ccc;
   }
-  .nav-child-link {
-    border: 0;
+  .child-nav {
+    margin-top: -1px;
+    right: 0;
+    z-index: -1;
+  }
+  .img-link img{
+    margin: 5px 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
   }
 }
 .child-menu {
