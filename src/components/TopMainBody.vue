@@ -3,17 +3,32 @@
     <div class="body-left">
       <div class="all-nav">全部分类</div>
       <Navigation
-        :navList="navList"
+        class="position-relative"
+        :navList="$root.allData.allNav"
         :vertical="true"
         postSymbol=">"
         itemClass="main-body-nav"
         linkClass="main-body-link"
         spacerClass="main-body-spacer"
         :frontSymbolClass="['iconfont', 'custom-font']"
-        :extraFrontSymbolClass="['icon-bijiben', 'icon-huangguan', 'icon-bianzu129','icon-liwu','icon-pinglun','icon-shanchu','icon-weizhi','icon-shijian','icon-shouye','icon-yinhangka','icon-shoucang','icon-tupian','icon-zuanshi','icon-zhibo',
-'icon-qianbao','icon-rili'
-]"
-      ></Navigation>
+        :extraFrontSymbolClass="['icon-bijiben', 'icon-huangguan', 'icon-bianzu129',
+        'icon-liwu','icon-pinglun','icon-shanchu','icon-weizhi','icon-shijian','icon-shouye','icon-yinhangka',
+        'icon-shoucang','icon-tupian','icon-zuanshi','icon-zhibo','icon-qianbao','icon-rili']"
+        childNavClass="child-nav-style"
+      >
+        <template
+          #[i-1]="{childNav, current}"
+          v-for="i in $root.allData.allNav"
+        >
+          <div :key="i">
+            <div v-for="(item, index) in childNav" :key="index">
+              <h6 class="inner-head">{{ current[index].value }}</h6>
+              <hr>
+              <Navigation :navList="item" :multiLine="true" linkClass="child-nav-link"></Navigation>
+            </div>
+          </div>
+        </template>
+      </Navigation>
     </div>
     <div class="body-right">
       <div class="body-right-bottom">
@@ -21,7 +36,7 @@
           <div class="carousel-wrapper">
             <el-carousel class="h-100" height="100%">
               <el-carousel-item
-                v-for="(item,index) in $root.allData.carouselPics || []"
+                v-for="(item,index) in $root.allData.carouselPics"
                 :key="index"
               >
                 <img class="h-100" :src="item" />
@@ -29,7 +44,7 @@
             </el-carousel>
           </div>
           <div class="advert-top-1">
-            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[2]"></CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics[2]"></CoverCard>
           </div>
           <div class="user-info">
             <CoverCard>
@@ -44,13 +59,13 @@
         </div>
         <div class="advert-bottom">
           <div class="advert-bottom-1">
-            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[0]"></CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics[0]"></CoverCard>
           </div>
           <div class="advert-bottom-2">
-            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[1]"></CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics[1]"></CoverCard>
           </div>
           <div class="advert-bottom-3">
-            <CoverCard :imgUrl="$root.allData.advertPics && $root.allData.advertPics[3]"></CoverCard>
+            <CoverCard :imgUrl="$root.allData.advertPics[3]"></CoverCard>
           </div>
           <div class="qr-code">
             <CoverCard>
@@ -66,48 +81,16 @@
         </div>
       </div>
       <div class="body-right-top">
-        <Navigation :navList="rightTopNavlist" itemClass="itemStyle" linkClass="linkStyle" />
+        <Navigation :navList="$root.allData.rightTopNav" itemClass="itemStyle" linkClass="linkStyle" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import navList from "../assets/main-body-nav-list.js";
 import Navigation from "./Navigation.vue";
 import CoverCard from "./CoverCard.vue";
 export default {
-  data() {
-    return {
-      navList,
-      rightTopNavlist: [
-        {
-          value: "美团外卖",
-          url: "#adslfk"
-        },
-        {
-          value: "猫眼电影",
-          url: "#adslfk"
-        },
-        {
-          value: "美团酒店",
-          url: "#adslfk"
-        },
-        {
-          value: "名宿/公寓",
-          url: "#adslfk"
-        },
-        {
-          value: "商家入驻",
-          url: "#adslfk"
-        },
-        {
-          value: "美团公益",
-          url: "#adslfk"
-        }
-      ]
-    };
-  },
   components: {
     Navigation,
     CoverCard
@@ -127,18 +110,22 @@ export default {
   font-weight: 700;
 }
 .container {
+  position: relative;
   display: flex;
   margin-top: -58px;
   padding-bottom: 30px;
+  z-index: 0;
 }
 .container > .body-left {
   width: 20%;
   border: 1px solid rgb(221, 221, 221);
   background-color: #fff;
+  z-index: 1;
 }
 .container > .body-right {
   width: 80%;
   position: relative;
+  z-index: 0;
 }
 .body-right-top {
   position: absolute;
@@ -238,6 +225,12 @@ export default {
 .qr-info-body img {
   height: 70%;
 }
+.inner-head {
+  margin: 5px 0px 10px;
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
+}
 /deep/ {
   .linkStyle {
     font-size: 16px;
@@ -256,6 +249,9 @@ export default {
   }
   .itemStyle:nth-child(5):hover .linkStyle {
     color: #fe8c00;
+  }
+  .main-body-nav {
+    position: static;
   }
   .main-body-nav:hover {
     background-color: rgba(255, 150, 0, 0.08);
@@ -277,6 +273,16 @@ export default {
     width: 30px;
     text-align: center;
     font-size: 12px;
+  }
+  .child-nav-style {
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 400px;
+    padding: 15px;
+  }
+  .child-nav-link {
+    padding: 3px 5px;
   }
 }
 </style>

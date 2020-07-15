@@ -10,12 +10,17 @@ body {
 hr {
   border: 0px;
   border-top: 1px solid rgb(224, 224, 224);
+  padding: 2px 0;
 }
 a {
     text-decoration: none;
 }
 .h-100 {
   height: 100%;
+}
+.position-relative {
+  position: relative;
+  z-index: 0;
 }
 .flex-1 {
   flex: 1;

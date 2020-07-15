@@ -17,13 +17,18 @@ new Vue({
   render: h => h(App),
   data() {
     return {
-      allData: {}
+      allData: {
+        allNav: [],
+        rightTopNav: [],
+        headImg: '',
+        carouselpics: [],
+        advertPics: []
+      }
     }
   },
   mounted() {
     ajax('ksdjfksdsall').then(xhr => {
       this.allData = JSON.parse(xhr.response)
-      console.log(this.allData)
     });
   }
 }).$mount('#app')

@@ -8,7 +8,7 @@ export default [
     {
         value: '我的美团',
         url: '#1',
-        childNav: [
+        childNav: [[
             {
                 value: '我的订单',
                 url: '#22'
@@ -25,7 +25,7 @@ export default [
                 value: '账户设置',
                 url: '#22'
             }
-        ]
+        ]]
     },
     {
         value: '手机APP',
@@ -36,7 +36,7 @@ export default [
         value: '商家中心',
         url: '#1',
         childNav: [
-            {
+            [{
                 value: '登录商家中心',
                 url: '#1'
             },
@@ -63,13 +63,13 @@ export default [
             {
                 value: '免费合作美团排队',
                 url: '#1'
-            }
+            }]
         ]
     },{
         value: '美团规则',
         url: '#1',
         childNav: [
-            {
+            [{
                 value: '规则中心',
                 url: '#22'
             },
@@ -80,7 +80,7 @@ export default [
             {
                 value: '规则评议院',
                 url: '#22'
-            }
+            }]
         ]
     },
     {

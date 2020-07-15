@@ -2,26 +2,26 @@
   <footer>
       <div class="footer-1">
           <div>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[0]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[1]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[0]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[1]"/>
           </div>
           <div>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[2]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[2]"/>
           </div>
           <div>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[3]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[4]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[5]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[3]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[4]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[5]"/>
           </div>
           <div>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[6]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[7]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[6]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[7]"/>
           </div>
           <div>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[8]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[9]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[10]"/>
-              <Navigation :autoHead="true" class="custom-margin" direction="column" :navList="navList[11]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[8]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[9]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[10]"/>
+              <Navigation class="custom-margin" :vertical="true" :navList="navList[11]"/>
           </div>
       </div>
         <hr />

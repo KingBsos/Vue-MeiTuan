@@ -14,10 +14,10 @@
         </template>
         <span v-if="postSymbol" :class="_postSymbolClass">{{ postSymbol }}</span>
         <div v-if="hasChildMap[index]" :class="_childNavClass">
-          <slot :name="index" :childNav="item.childNav">
-            <Navigation
+          <slot :name="index" :childNav="item.childNav" :current="typeof item.value == 'string'? [item]: item.value">
+            <Navigation v-for="(item,index) in item.childNav" :key="index"
               :vertical="true"
-              :navList="item.childNav"
+              :navList="item"
               :itemClass="_childItemClass"
               :linkClass="_childLinkClass"
             />
@@ -131,7 +131,7 @@ export default {
   flex-direction: column;
 }
 .vc-multi-line {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .vc-nav {
   margin: 0;
@@ -150,9 +150,6 @@ export default {
   margin-left: auto;
 }
 .vc-child-nav {
-  width: 0;
-  height: 0;
-  opacity: 0;
   position: absolute;
   white-space: nowrap;
   overflow: hidden;
@@ -166,9 +163,9 @@ export default {
   left: 100%;
   top: 0;
 }
-.vc-nav-item:hover .vc-child-nav {
-  opacity: 1;
-  width: auto;
-  height: auto;
+.vc-nav-item:not(:hover) .vc-child-nav {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 </style>
