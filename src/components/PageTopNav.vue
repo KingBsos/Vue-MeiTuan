@@ -3,7 +3,7 @@
     <Weather :city="city" />
     <!-- <Navigation class="nav-init" :navList="RowNavData.navList"/> -->
     <Navigation
-      :navList="navList"
+      :navList="$root.allData.topNav"
       itemClass="nav-item"
       linkClass="nav-link"
       childNavClass="child-nav"
@@ -71,16 +71,10 @@
 <script>
 import Weather from "./Weather.vue";
 import Navigation from "./Navigation.vue";
-import navList from "../assets/top-nav-list.js";
 
 export default {
   props: {
     city: String
-  },
-  data() {
-    return {
-      navList: navList
-    };
   },
   computed: {},
   components: {

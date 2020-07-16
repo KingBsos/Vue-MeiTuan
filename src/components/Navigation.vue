@@ -1,21 +1,23 @@
 <template>
   <div>
     <ul :class="_navClass">
-      <li v-for="(item,index) in navList" :key="index" :class="__itemClass(index)">
+      <li v-for="(item,index) in _navList" :key="index" :class="__itemClass(index)">
         <i v-if="frontSymbolClass" :class="__frontSymbolClass(index)"></i>
-        <NavItem v-if="typeof item.value == 'string'" :item="item" :linkClass="linkClass"></NavItem>
-        <template v-else v-for="(item2,index2) in item.value">
-          <NavItem :key="index2" :item="item2" :linkClass="linkClass" />
+        <template v-for="(item2,index2) in item.value">
+          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="__linkClass(index)" />
           <span
-            v-if="index2 < item.value.length - 1"
+            v-if="spacer && index2 < item.value.length - 1"
             :key="-index2 - 1"
             :class="spacerClass || linkClass"
           >{{ spacer }}</span>
         </template>
         <span v-if="postSymbol" :class="_postSymbolClass">{{ postSymbol }}</span>
         <div v-if="hasChildMap[index]" :class="_childNavClass">
-          <slot :name="index" :childNav="item.childNav" :current="typeof item.value == 'string'? [item]: item.value">
-            <Navigation v-for="(item,index) in item.childNav" :key="index"
+          <slot :name="index" :childNav="item.childNav" :current="item.value">
+            <Navigation
+              v-for="(item,index) in item.childNav"
+              :key="index"
+              :useRouter="useRouter"
               :vertical="true"
               :navList="item"
               :itemClass="_childItemClass"
@@ -40,6 +42,9 @@ export default {
       type: Array,
       require: true
     },
+    useRouter: {
+      type: Boolean
+    },
     vertical: {
       type: Boolean,
       default: false
@@ -49,11 +54,13 @@ export default {
       default: false
     },
     spacer: {
-      type: String,
-      default: "/"
+      type: String
     },
     postSymbol: {
       type: String
+    },
+    titleClass: {
+      type: [String, Array]
     },
     itemClass: {
       type: [String, Array]
@@ -65,7 +72,7 @@ export default {
       type: [String, Array]
     },
     frontSymbolClass: {
-      type: [String, Array],
+      type: [String, Array]
     },
     extraFrontSymbolClass: {
       type: Array,
@@ -85,13 +92,22 @@ export default {
     }
   },
   computed: {
+    _navList() {
+      return this.navList.map(item => {
+        let { type, value, url, childNav, ...obj } = item;
+        if (!Array.isArray(value)) value = [{ type, value, url }];
+        if (childNav && !Array.isArray(childNav[0])) childNav = [[...childNav]];
+        return { value, childNav, ...obj };
+      });
+    },
     _navClass() {
       let vertical = this.vertical ? "vc-vertical" : "";
       let multiLine = this.multiLine ? "vc-multi-line" : "";
       return ["vc-nav", vertical, multiLine];
     },
     _itemClass() {
-      return ["vc-nav-item"].concat(this.itemClass);
+      let multiLine = this.multiLine ? "vc-multi-line" : "";
+      return ["vc-nav-item"].concat(multiLine, this.itemClass);
     },
     _postSymbolClass() {
       return this.postSymbolClass
@@ -118,9 +134,15 @@ export default {
     __itemClass(index) {
       return this._itemClass.concat(this.hasChildMap[index] ? "has-child" : "");
     },
+    __linkClass(index) {
+      if(index == 0 && this.titleClass) return [].concat(this.linkClass, this.titleClass);
+      return this.linkClass;
+    },
     __frontSymbolClass(index) {
-      if(this.frontSymbolClass)
-      return [].concat(this.frontSymbolClass).concat(this.extraFrontSymbolClass[index]);
+      if (this.frontSymbolClass)
+        return []
+          .concat(this.frontSymbolClass)
+          .concat(this.extraFrontSymbolClass[index]);
     }
   }
 };
@@ -166,6 +188,8 @@ export default {
 .vc-nav-item:not(:hover) .vc-child-nav {
   width: 0;
   height: 0;
+  padding: 0;
+  border: 0;
   opacity: 0;
 }
 </style>

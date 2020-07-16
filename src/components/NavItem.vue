@@ -10,19 +10,16 @@ export default {
     },
     useRouter: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   computed: {
-    _useRouter() {
-      return this.$router ? (this.useRouter ? true : false) : false;
-    },
     _linkStyle() {
       return ["vc-link"].concat(this.linkClass);
     }
   },
   render(h) {
-    let { tag, value, url } = this.item;
+    let { type, value, url } = this.item;
     let link = "";
     let childElements = [];
     let option = {
@@ -33,14 +30,14 @@ export default {
     };
     if (!url) {
       link = "span";
-    } else if (this._useRouter) {
+    } else if (this.useRouter) {
       link = "router-link";
       option.props.to = url;
     } else {
       link = "a";
       option.attrs.href = url;
     }
-    if (tag == "img") {
+    if (type == "img") {
       childElements.push(
         h("img", {
           attrs: {
@@ -59,11 +56,14 @@ export default {
 <style scoped>
 .vc-link {
   display: inline-block;
-  padding: 2px;
+  padding: 3px;
   font-size: 12px;
   color: #999;
 }
-.vc-link:hover {
+span.vc-link {
+  color: #222;
+}
+a.vc-link:hover {
   color: #fe8c00;
 }
 .vc-link img {

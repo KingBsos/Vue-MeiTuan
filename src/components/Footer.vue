@@ -2,26 +2,27 @@
   <footer>
       <div class="footer-1">
           <div>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[0]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[1]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[0]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[1]"/>
           </div>
           <div>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[2]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[2]"/>
           </div>
           <div>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[3]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[4]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[5]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[3]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[4]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[5]"/>
           </div>
           <div>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[6]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[7]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[6]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[7]"/>
           </div>
           <div>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[8]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[9]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[10]"/>
-              <Navigation class="custom-margin" :vertical="true" :navList="navList[11]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[8]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[9]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[10]"/>
+              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[11]"/>
+              <Navigation titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[12]"/>
           </div>
       </div>
         <hr />
@@ -50,18 +51,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 footer {
     padding: 5px 100px;
     background-color: rgba(245, 245, 245, 0.575);
 }
 .footer-1, .footer-2 {
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     font-size: 14px;
 }
-.custom-margin {
-    margin-top: 15px;
+.footer-1 > div {
+    margin: 0 20px;
+    width: 200px;
+}
+/deep/ {
+    .foot-title {
+        margin-left: -5px;
+        font-size: 14px;
+    }
 }
 </style>

@@ -22,6 +22,9 @@ a {
   position: relative;
   z-index: 0;
 }
+.float-right {
+  float: right;
+}
 .flex-1 {
   flex: 1;
 }
@@ -31,8 +34,14 @@ a {
 .justify-content-between {
   justify-content: space-between;
 }
+.mt-1 {
+  margin-top: 1em;
+}
 .text-danger {
   color: #ec5330;
+}
+.text-muted {
+  color: #aaaaaa;
 }
 .text-size-12 {
   font-size: 12px;

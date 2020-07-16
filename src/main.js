@@ -18,11 +18,15 @@ new Vue({
   data() {
     return {
       allData: {
+        topNav: [],
         allNav: [],
         rightTopNav: [],
         headImg: '',
         carouselpics: [],
-        advertPics: []
+        advertPics: [],
+        catEyeMovieNav: [],
+        famousHostelNav: [],
+        guessYouLikeNav: []
       }
     }
   },

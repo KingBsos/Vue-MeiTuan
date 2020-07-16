@@ -6,6 +6,7 @@
         class="position-relative"
         :navList="$root.allData.allNav"
         :vertical="true"
+        spacer="/"
         postSymbol=">"
         itemClass="main-body-nav"
         linkClass="main-body-link"
@@ -16,14 +17,14 @@
         'icon-shoucang','icon-tupian','icon-zuanshi','icon-zhibo','icon-qianbao','icon-rili']"
         childNavClass="child-nav-style"
       >
-        <template
-          #[i-1]="{childNav, current}"
-          v-for="i in $root.allData.allNav"
-        >
+        <template #[i-1]="{childNav, current}" v-for="i in $root.allData.allNav.length">
           <div :key="i">
             <div v-for="(item, index) in childNav" :key="index">
-              <h6 class="inner-head">{{ current[index].value }}</h6>
-              <hr>
+              <h6 class="inner-head">
+                {{ current[index].value }}
+                <a class="float-right text-size-12 text-muted" :href="current[index].url">更多&raquo;</a>
+              </h6>
+              <hr />
               <Navigation :navList="item" :multiLine="true" linkClass="child-nav-link"></Navigation>
             </div>
           </div>
@@ -35,10 +36,7 @@
         <div class="advert-top">
           <div class="carousel-wrapper">
             <el-carousel class="h-100" height="100%">
-              <el-carousel-item
-                v-for="(item,index) in $root.allData.carouselPics"
-                :key="index"
-              >
+              <el-carousel-item v-for="(item,index) in $root.allData.carouselPics" :key="index">
                 <img class="h-100" :src="item" />
               </el-carousel-item>
             </el-carousel>
@@ -81,7 +79,11 @@
         </div>
       </div>
       <div class="body-right-top">
-        <Navigation :navList="$root.allData.rightTopNav" itemClass="itemStyle" linkClass="linkStyle" />
+        <Navigation
+          :navList="$root.allData.rightTopNav"
+          itemClass="itemStyle"
+          linkClass="linkStyle"
+        />
       </div>
     </div>
   </div>
@@ -226,7 +228,7 @@ export default {
   height: 70%;
 }
 .inner-head {
-  margin: 5px 0px 10px;
+  margin: 10px 0px 5px;
   color: #222;
   font-size: 16px;
   font-weight: 500;
