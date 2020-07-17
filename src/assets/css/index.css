@@ -43,6 +43,15 @@ a {
 .text-muted {
   color: #aaaaaa;
 }
+.bg-danger {
+  background-color: rgb(235, 49, 35);
+}
+.bg-info {
+  background-color: rgb(35, 178, 235);
+}
+.bg-warning {
+  background-color: rgb(231, 184, 29);
+}
 .text-size-12 {
   font-size: 12px;
 }
