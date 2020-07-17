@@ -2,27 +2,27 @@
   <footer>
       <div class="footer-1">
           <div>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[0]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[1]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[0]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[1]"/>
           </div>
           <div>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[2]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[2]"/>
           </div>
           <div>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[3]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[4]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[5]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[3]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[4]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[5]"/>
           </div>
           <div>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[6]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[7]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[6]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[7]"/>
           </div>
           <div>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[8]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[9]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[10]"/>
-              <Navigation class="mt-1" titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[11]"/>
-              <Navigation titleClass="foot-title" :multiLine="true" :vertical="true" :navList="navList[12]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[8]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[9]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[10]"/>
+              <Navigation class="mt-1" titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[11]"/>
+              <Navigation titleClass="foot-title" linkClass="font-size-12 line-height-2" :multiLine="true" :vertical="true" :navList="navList[12]"/>
           </div>
       </div>
         <hr />

@@ -1,10 +1,15 @@
 <template>
   <div>
     <ul :class="_navClass">
-      <li v-for="(item,index) in _navList" :key="index" :class="__itemClass(index)">
+      <li
+        v-for="(item,index) in _navList"
+        :key="index"
+        :class="__itemClass(index, _navList)"
+        v-on="__itemEvent(index)"
+      >
         <i v-if="frontSymbolClass" :class="__frontSymbolClass(index)"></i>
         <template v-for="(item2,index2) in item.value">
-          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="__linkClass(index)" />
+          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="linkClass" />
           <span
             v-if="spacer && index2 < item.value.length - 1"
             :key="-index2 - 1"
@@ -25,6 +30,7 @@
             />
           </slot>
         </div>
+        <slot v-if="currentIndex === index" name="mark"></slot>
       </li>
     </ul>
   </div>
@@ -41,6 +47,9 @@ export default {
     navList: {
       type: Array,
       require: true
+    },
+    currentIndex: {
+      type: Number
     },
     useRouter: {
       type: Boolean
@@ -60,6 +69,9 @@ export default {
       type: String
     },
     titleClass: {
+      type: [String, Array]
+    },
+    tailClass: {
       type: [String, Array]
     },
     itemClass: {
@@ -89,6 +101,9 @@ export default {
     },
     childLinkClass: {
       type: [String, Array]
+    },
+    itemEvent: {
+      type: Object
     }
   },
   computed: {
@@ -131,18 +146,33 @@ export default {
     }
   },
   methods: {
-    __itemClass(index) {
-      return this._itemClass.concat(this.hasChildMap[index] ? "has-child" : "");
-    },
-    __linkClass(index) {
-      if(index == 0 && this.titleClass) return [].concat(this.linkClass, this.titleClass);
-      return this.linkClass;
+    __itemClass(index, arr) {
+      let base = []
+        .concat(this._itemClass)
+        .concat(this.hasChildMap[index] ? "has-child" : "");
+      if (index == 0 && this.titleClass) return base.concat(this.titleClass);
+      if (index == arr.length - 1 && this.tailClass)
+        return base.concat(this.tailClass);
+      return base;
     },
     __frontSymbolClass(index) {
       if (this.frontSymbolClass)
         return []
           .concat(this.frontSymbolClass)
           .concat(this.extraFrontSymbolClass[index]);
+    },
+    __itemEvent(index) {
+      let listener = this.itemEvent;
+      let newListener = {};
+      for (let i in listener) {
+        Object.defineProperty(newListener, i, {
+          value: function(event) {
+            listener[i]({ index }, event);
+          },
+          enumerable: true
+        });
+      }
+      return newListener;
     }
   }
 };

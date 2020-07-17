@@ -25,7 +25,7 @@
                 <a class="float-right text-size-12 text-muted" :href="current[index].url">更多&raquo;</a>
               </h6>
               <hr />
-              <Navigation :navList="item" :multiLine="true" linkClass="child-nav-link"></Navigation>
+              <Navigation :navList="item" :multiLine="true" linkClass="child-nav-link font-size-12"></Navigation>
             </div>
           </div>
         </template>
