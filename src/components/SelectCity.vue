@@ -2,114 +2,124 @@
   <div>
     <div class="container">
       <div>
-        <h3>按省份选择：</h3>
-        <select v-model="currentProvince">
-          <option disabled>省份</option>
+        <h3 class="d-ib vc-title">按省份选择：</h3>
+        <select class="vc-select mr-1em" v-model="currentProvince">
+          <option disabled>请选择省份</option>
           <option
-            v-for="(province, index) in Object.keys(cityListByDistrict)"
+            v-for="(item, index) in $root.allData.cityByDistrict"
             :key="index"
-          >{{ province }}</option>
+            :value="index"
+          >{{ item.province }}</option>
         </select>
-        <select v-model="currentCity">
-          <option disabled>城市</option>
+        <select class="vc-select mr-3em" v-model="currentCity">
+          <option disabled>请选择城市</option>
+          <template v-if="$root.allData.cityByDistrict[currentProvince]">
           <option
-            v-for="(item, index) in cityListByDistrict[currentProvince]"
+            v-for="(item, index) in $root.allData.cityByDistrict[currentProvince].sub"
             :key="index"
-          >{{ item }}</option>
+          >{{ item.city }}</option>
+          </template>
         </select>
-        <span>直接搜索：</span>
-        <input type="text" />
+        <h3 class="d-ib vc-title">直接搜索：</h3>
+        <input class="vc-input" type="text" placeholder="请输入城市中文或拼音" />
       </div>
       <hr />
       <div>
-        <h3>热门城市：</h3>
-        <span class="city-link" v-for="(item, index) in hotCityList" :key="index">{{ item }}</span>
+        <h3 class="d-ib vc-title">热门城市：</h3>
+        <Navigation class="d-ib" :navList="$root.allData.hotCity" linkClass="nav-link" />
       </div>
       <hr />
       <div>
-        <h3>最近访问：</h3>
-        <span class="city-link" v-for="(item, index) in latelySearch" :key="index">{{ item }}</span>
+        <h3 class="d-ib vc-title">最近访问：</h3>
+        <Navigation class="d-ib" :navList="$root.allData.recentVisit" linkClass="nav-link" />
       </div>
       <hr />
       <div>
-        <h3>按拼音首字母选择：</h3>
-        <div class="flex-1 d-flex justify-content-between">
-          <span
-            class="city-link"
-            v-for="(item, index) in Object.keys(cityListByLetter)"
-            :key="index"
-          >{{ item }}</span>
+        <h3 class="d-ib vc-title">按拼音首字母选择：</h3>
+        <NavItem
+          v-for="(item, index) in $root.allData.allCityByLetter"
+          :key="index"
+          :item="{value: item.name, url: `#${item.name + index}`}"
+          linkClass="nav-link"
+        />
+      </div>
+      <div class="d-flex" v-for="(item, index) in $root.allData.allCityByLetter" :key="index">
+        <span :id="`${item.name + index}`" class="letter-head d-ib">{{ item.name }}</span>
+        <div class="d-ib flex-1">
+          <Navigation :navList="item.value" :multiLine="true" linkClass="nav-link" />
         </div>
-      </div>
-      <div>
-        <template v-for="(item, index) of Object.keys(cityListByLetter)">
-          <div :key="index">
-            <div class="city-label" :key="index">
-              <span>{{ item }}</span>
-            </div>
-            <div class>
-              <span
-                class="city-link"
-                v-for="(item, index) in cityListByLetter[item]"
-                :key="index"
-              >{{ item }}</span>
-            </div>
-          </div>
-        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Navigation from "./Navigation.vue";
+import NavItem from "./NavItem.vue";
 export default {
-  props: {
-    value: String
-  },
   data() {
     return {
-      hotCityList: ["one", "two"],
-      latelySearch: [],
-      cityListByDistrict: { 广东: ["珠海"] },
-      cityListByLetter: { A: ["鞍山", "鞍马"], B: ["北京", "北山"] },
-      currentProvince: "省份",
-      currentCity: "城市"
+      currentProvince: "请选择省份",
+      currentCity: "请选择城市"
     };
+  },
+  watch: {
+    currentProvince() {
+      this.currentCity = '请选择城市';
+    },
+    currentCity(value) {
+      this.$router.push(`/${value}/index`);
+    }
+  },
+  components: {
+    Navigation,
+    NavItem
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   padding: 10px;
   background-color: #fff;
 }
-.container > div:not(:last-child) {
-  padding: 10px 5px;
-  display: flex;
-  align-items: center;
+.container > div {
+  padding: 10px 0px;
 }
-.container > div:last-child > div {
-  display: flex;
-  align-items: flex-start;
+.vc-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
 }
-.city-link {
-  display: inline-block;
-  padding: 10px 15px;
-  color: rgb(121, 121, 121);
-  cursor: pointer;
+.vc-select {
+  width: 150px;
+  padding: 10px;
+  border: 1px solid rgb(223, 223, 223);
+  border-radius: 5px;
+  background-color: #fff;
+  color: #666;
 }
-.city-link:hover {
-  color: rgb(37, 37, 37);
+.vc-input {
+  padding: 10px;
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 5px;
 }
-.city-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  line-height: 1;
-  background-color: rgb(16, 205, 230);
+.letter-head {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding-top: 9px;
   border-radius: 50%;
+  background-color: rgb(255, 217, 0);
+}
+/deep/ {
+  .nav-link {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #666;
+  }
+  .nav-link:hover {
+    color: #333;
+  }
 }
 </style>

@@ -22,18 +22,22 @@ import Footer from "./components/Footer.vue";
 import './mockData.js';
 export default {
   name: "App",
+  props: {
+    city: {
+      type: String,
+      default: '北京'
+    }
+  },
   data() {
     return {
-      city: '珠海'
+      
     };
   },
   components: {
     PageTopNav,
     HeaderSearch,
     Footer
-  },
-  computed: {},
-  methods: {}
+  }
 };
 </script>
 

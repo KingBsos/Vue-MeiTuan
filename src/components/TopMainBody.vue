@@ -70,7 +70,7 @@
               <div class="qr-info-body">
                 <img src="https://s1.meituan.net/bs/fe-web-meituan/60ac9a0/img/download-qr.png" />
                 <p>美团APP手机版</p>
-                <p class="text-size-12">
+                <p class="font-size-12">
                   <span class="text-danger">1元起</span>吃喝玩乐
                 </p>
               </div>

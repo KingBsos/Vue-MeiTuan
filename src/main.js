@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import ajax from './utils/ajax.js';
@@ -14,7 +13,7 @@ const router = new VueRouter(routerConfig);
 
 new Vue({
   router,
-  render: h => h(App),
+  render: h => h('router-view'),
   data() {
     return {
       allData: {
@@ -25,14 +24,22 @@ new Vue({
         carouselpics: [],
         advertPics: [],
         catEyeMovieNav: [],
+        catEyeMovieData: [],
         famousHostelNav: [],
-        guessYouLikeNav: []
+        guessYouLikeNav: [],
+        guessYouLikeData: [],
+        famousHostelData: [],
+        hotCity: [],
+        recentVisit: [],
+        allCityByLetter: [],
+        cityByDistrict: []
       }
     }
   },
   mounted() {
     ajax('ksdjfksdsall').then(xhr => {
       this.allData = JSON.parse(xhr.response)
+      //console.log(this.allData.famousHostelData)
     });
   }
 }).$mount('#app')

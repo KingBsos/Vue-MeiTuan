@@ -64,7 +64,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 15px;
+  padding: 15px;
 }
 .head-brand img {
   width: auto;

@@ -35,17 +35,47 @@ a:hover {
 .d-flex {
   display: flex;
 }
+.d-ib {
+  display: inline-block;
+}
 .justify-content-between {
   justify-content: space-between;
 }
 .mt-1 {
   margin-top: 1em;
 }
+.p-sm {
+  padding:3px 8px;
+}
+.pb-2em {
+  padding-bottom: 2em;
+}
+.pt-2em {
+  padding-top: 2em;
+}
+.m-sm {
+  margin: 5px;
+}
+.mr-1em {
+  margin-right: 1em;
+}
+.mr-2em {
+  margin-right: 2em;
+}
+.mr-3em {
+  margin-right: 3em;
+}
 .text-danger {
   color: #ec5330;
 }
 .text-muted {
   color: #aaaaaa;
+}
+.text-white {
+  color: rgb(241, 241, 241);
+}
+.text-warning {
+  color: rgb(255, 187, 0);
 }
 .bg-danger {
   background-color: rgb(235, 49, 35);
@@ -54,10 +84,19 @@ a:hover {
   background-color: rgb(35, 178, 235);
 }
 .bg-warning {
-  background-color: rgb(231, 184, 29);
+  background-color: rgb(255, 166, 0);
 }
 .font-size-12 {
   font-size: 12px;
+}
+.font-size-14 {
+  font-size: 14px;
+}
+.font-size-1_2 {
+  font-size: 1.2em;
+}
+.font-bold {
+  font-weight: 700;
 }
 .line-height-2 {
   line-height: 2;
