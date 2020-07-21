@@ -19,6 +19,17 @@ a {
 a:hover {
   color: #fe8c00;
 }
+.wrapper-a {
+  display: inline-block;
+  width: 100%;
+  color: #333;
+}
+.wrapper-a:hover {
+  color: #333;
+}
+.w-25 {
+  width: 25%;
+}
 .h-100 {
   height: 100%;
 }
@@ -26,8 +37,16 @@ a:hover {
   position: relative;
   z-index: 0;
 }
+.float-left {
+  float: left;
+}
 .float-right {
   float: right;
+}
+.clear:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 .flex-1 {
   flex: 1;
@@ -65,11 +84,19 @@ a:hover {
 .mr-3em {
   margin-right: 3em;
 }
+.text-right {
+  text-align: right;
+}
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .text-danger {
-  color: #ec5330;
+  color: #ff6e35;
 }
 .text-muted {
-  color: #aaaaaa;
+  color: #929292;
 }
 .text-white {
   color: rgb(241, 241, 241);
@@ -86,11 +113,17 @@ a:hover {
 .bg-warning {
   background-color: rgb(255, 166, 0);
 }
+.font-size-0 {
+  font-size: 0px;
+}
 .font-size-12 {
   font-size: 12px;
 }
 .font-size-14 {
   font-size: 14px;
+}
+.font-size-20 {
+  font-size: 20px;
 }
 .font-size-1_2 {
   font-size: 1.2em;
@@ -98,6 +131,12 @@ a:hover {
 .font-bold {
   font-weight: 700;
 }
+.font-bolder {
+  font-weight: 900;
+}
 .line-height-2 {
   line-height: 2;
+}
+.cursor-pointer {
+  cursor: pointer;
 }

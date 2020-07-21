@@ -10,13 +10,15 @@
       :column="5"
       subitemClass="movie-card"
     >
-      <template #default="{data:{poster, name, wantSee}}">
-        <CoverCard :imgUrl="poster" height="300px" coverBodyClass="movie-detail">
-          <p class="text-white font-size-12 p-sm">
-            <span class="text-warning font-size-1_2">{{ wantSee }}</span>人想看
-          </p>
-          <p class="text-white p-sm font-bold">{{ name }}</p>
-        </CoverCard>
+      <template #default="{data:{poster, name, wantSee, url}}">
+        <a class="wrapper-a cursor-pointer" :href="url">
+          <CoverCard :imgUrl="poster" height="300px" coverBodyClass="movie-detail">
+            <p class="text-white font-size-12 p-sm">
+              <span class="text-warning font-size-1_2">{{ wantSee }}</span>人想看
+            </p>
+            <p class="text-white p-sm font-bold">{{ name }}</p>
+          </CoverCard>
+        </a>
       </template>
     </HeadIndexNav>
     <HeadIndexNav
@@ -26,11 +28,13 @@
       :headIndex="$root.allData.famousHostelNav"
       :bodyData="$root.allData.famousHostelData"
     >
-      <template #default="{data: {name, poster, comment, price, location, detail}}">
-        <cover-card :imgUrl="poster" height="250px" />
-        <p>{{ name }}</p>
-        <p>整套{{ detail[0] }}居室 可住{{ detail[1] }}人 | {{ location }}</p>
-        <p>${{ price }}</p>
+      <template #default="{data: {name, poster, comment, price, location, detail, url}}">
+        <a class="wrapper-a cursor-pointer" :href="url">
+          <cover-card :imgUrl="poster" height="250px" />
+          <p class="text-overflow line-height-2">{{ name }}</p>
+          <p class="text-muted font-size-12">整套{{ detail[0] }}居室 ` 可住{{ detail[1] }}人 | {{ location }}</p>
+          <p class="font-size-20 font-bolder text-danger">${{ price }}</p>
+        </a>
       </template>
     </HeadIndexNav>
     <HeadIndexNav
@@ -40,14 +44,21 @@
       :bodyData="$root.allData.guessYouLikeData"
       :row="3"
       :column="5"
-      subitemClass="like-card"
     >
-      <template #default="{data: {name, poster, comment, price, star, position}}">
-        <cover-card :imgUrl="poster" height="100px" />
-        <p>{{ name }}</p>
-        <p>{{ star + comment }}</p>
-        <p>{{ position }}</p>
-        <p>${{ price }}起</p>
+      <template #default="{data: {name, poster, comment, price, star, position, url}}">
+        <a class="wrapper-a like-card" :href="url">
+          <cover-card :imgUrl="poster" height="100px" />
+          <p class="line-height-2 text-overflow">{{ name }}</p>
+          <p>
+            {{ star.toFixed(1) }}
+            <span class="font-size-12 text-muted m-sm">{{ comment }}个评价</span>
+          </p>
+          <p class="font-size-12 text-muted">{{ position }}</p>
+          <p class="font-size-14 text-danger font-bold">
+            ${{ price }}
+            <span class="font-size-12 font-bolder">起</span>
+          </p>
+        </a>
       </template>
     </HeadIndexNav>
   </div>
@@ -67,6 +78,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.like-card {
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.like-card:hover {
+  background-color: rgb(245, 245, 245);
+}
 /deep/ {
   .head-index-nav {
     padding: 7px 15px;
@@ -74,9 +94,6 @@ export default {
   }
   .movie-card {
     padding: 5px 15px;
-  }
-  .like-card {
-    padding: 10px 15px;
   }
   .famous-card {
     padding: 10px;

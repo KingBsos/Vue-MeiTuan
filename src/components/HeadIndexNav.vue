@@ -79,7 +79,6 @@ export default {
   methods: {
     changeIndex(index) {
       if (index == this.currentPage) return;
-      console.log(this.currentPage)
       this.currentPage = index;
     },
     mouseenter(data) {
@@ -104,11 +103,9 @@ export default {
     }
   },
   mounted() {
-    console.log(this.bodyData)
     this.childPage = this.__convPageData();
   },
   updated() {
-    console.log(this.bodyData)
     let temp = this.__convPageData();
     if (temp.length == this.childPage.length) return;
     this.childPage = temp;
