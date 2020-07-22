@@ -1,6 +1,7 @@
 <template>
   <div>
     <TopMainBody />
+
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-danger head-index-nav"
@@ -21,6 +22,7 @@
         </a>
       </template>
     </HeadIndexNav>
+
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-warning head-index-nav"
@@ -32,11 +34,14 @@
         <a class="wrapper-a cursor-pointer" :href="url">
           <cover-card :imgUrl="poster" height="250px" />
           <p class="text-overflow line-height-2">{{ name }}</p>
-          <p class="text-muted font-size-12">整套{{ detail[0] }}居室 ` 可住{{ detail[1] }}人 | {{ location }}</p>
+          <p
+            class="text-muted font-size-12"
+          >整套{{ detail[0] }}居室 ` 可住{{ detail[1] }}人 | {{ location }}</p>
           <p class="font-size-20 font-bolder text-danger">${{ price }}</p>
         </a>
       </template>
     </HeadIndexNav>
+
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-info head-index-nav"

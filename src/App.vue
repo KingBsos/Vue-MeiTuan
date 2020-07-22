@@ -9,7 +9,9 @@
       </div>
     </div>
     <div class="padding-x-x layout-main-body">
+      <keep-alive>
       <router-view v-model="city"></router-view>
+      </keep-alive>
     </div>
     <Footer />
   </div>

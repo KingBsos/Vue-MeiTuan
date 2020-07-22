@@ -2,6 +2,7 @@
   <div class="container">
     <div class="body-left">
       <div class="all-nav">全部分类</div>
+
       <Navigation
         class="position-relative"
         :navList="$root.allData.allNav"
@@ -22,7 +23,10 @@
             <div v-for="(item, index) in childNav" :key="index">
               <h6 class="inner-head">
                 {{ current[index].value }}
-                <a class="float-right text-size-12 text-muted" :href="current[index].url">更多&raquo;</a>
+                <a
+                  class="float-right text-size-12 text-muted"
+                  :href="current[index].url"
+                >更多&raquo;</a>
               </h6>
               <hr />
               <Navigation :navList="item" :multiLine="true" linkClass="child-nav-link font-size-12"></Navigation>
@@ -49,8 +53,8 @@
               <div class="user-info-body">
                 <img :src="$root.allData.headImg" />
                 <p>KingBsos</p>
-                <a class="button" href="#ksdf">注销</a>
-                <a class="button" href="#ksdfj">立即登录</a>
+                <a class="button" href="/register">注册</a>
+                <a class="button" href="/signin">立即登录</a>
               </div>
             </CoverCard>
           </div>
