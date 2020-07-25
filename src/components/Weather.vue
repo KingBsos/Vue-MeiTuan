@@ -1,16 +1,16 @@
 <template>
   <div class="font-size-12">
-      <span class="m-sm text-muted">{{ city }}</span>
-      <router-link class="change-link m-sm" to="/select/city">切换城市</router-link>
+    <span class="m-sm text-muted">{{ city }}</span>
+    <router-link class="change-link m-sm" to="/selectcity">切换城市</router-link>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    city: String
-  }
-}
+    city: String,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -105,7 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/index.css";
 @import "../assets/css/font/iconfont.css";
 .all-nav {
   height: 58px;

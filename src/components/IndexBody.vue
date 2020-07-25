@@ -1,7 +1,6 @@
 <template>
   <div>
     <TopMainBody />
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-danger head-index-nav"
@@ -22,7 +21,6 @@
         </a>
       </template>
     </HeadIndexNav>
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-warning head-index-nav"
@@ -41,7 +39,6 @@
         </a>
       </template>
     </HeadIndexNav>
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-info head-index-nav"

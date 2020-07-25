@@ -39,49 +39,49 @@ export default {
   props: {
     headIndex: {
       type: Array,
-      required: true
+      required: true,
     },
     bodyData: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     pageData: {
-      type: Array
+      type: Array,
     },
     row: {
       type: Number,
-      default: 2
+      default: 2,
     },
     column: {
       type: Number,
-      default: 3
+      default: 3,
     },
     turnPage: {
       type: Boolean,
-      default: true
+      default: true,
     },
     headClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     subitemClass: {
-      type: [String, Array]
-    }
+      type: [String, Array],
+    },
   },
   data() {
     return {
       currentPage: 1,
-      childPage: []
+      childPage: [],
     };
   },
   components: {
-    Navigation
+    Navigation,
   },
   methods: {
     changeIndex(index) {
       if (index == this.currentPage) return;
       this.currentPage = index;
     },
-    mouseenter(data) {
+    mouseenter(event, _this, data) {
       let index = data.index;
       this.changeIndex(index);
     },
@@ -100,7 +100,7 @@ export default {
       let childPage = new Array(this.bodyData.length);
       childPage.fill(0);
       return childPage;
-    }
+    },
   },
   mounted() {
     this.childPage = this.__convPageData();
@@ -109,14 +109,12 @@ export default {
     let temp = this.__convPageData();
     if (temp.length == this.childPage.length) return;
     this.childPage = temp;
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  border: 1px solid rgb(201, 201, 201);
-  background-color: #fff;
   position: relative;
 }
 .vc-row {
@@ -165,6 +163,11 @@ export default {
 .right-turn-button {
   right: 0;
   top: 50%;
+}
+.content {
+  border: 1px solid rgb(201, 201, 201);
+  border-top: 0;
+  background-color: #fff;
 }
 .content:hover {
   .left-turn-button,

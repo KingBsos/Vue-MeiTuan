@@ -14,10 +14,10 @@
         <select class="vc-select mr-3em" v-model="currentCity">
           <option disabled>请选择城市</option>
           <template v-if="$root.allData.cityByDistrict[currentProvince]">
-          <option
-            v-for="(item, index) in $root.allData.cityByDistrict[currentProvince].sub"
-            :key="index"
-          >{{ item.city }}</option>
+            <option
+              v-for="(item, index) in $root.allData.cityByDistrict[currentProvince].sub"
+              :key="index"
+            >{{ item.city }}</option>
           </template>
         </select>
         <h3 class="d-ib vc-title">直接搜索：</h3>
@@ -46,7 +46,12 @@
       <div class="d-flex" v-for="(item, index) in $root.allData.allCityByLetter" :key="index">
         <span :id="`${item.name + index}`" class="letter-head d-ib">{{ item.name }}</span>
         <div class="d-ib flex-1">
-          <Navigation :navList="item.value" :multiLine="true" linkClass="nav-link" />
+          <Navigation
+            :navList="item.value"
+            :multiLine="true"
+            linkClass="nav-link"
+            :itemEvent="{click: changeCity}"
+          />
         </div>
       </div>
     </div>
@@ -60,21 +65,28 @@ export default {
   data() {
     return {
       currentProvince: "请选择省份",
-      currentCity: "请选择城市"
+      currentCity: "请选择城市",
     };
   },
   watch: {
     currentProvince() {
-      this.currentCity = '请选择城市';
+      this.currentCity = "请选择城市";
     },
     currentCity(value) {
-      this.$router.push(`/${value}/index`);
-    }
+      this.$root.city = value;
+      this.$router.push(`/`);
+    },
   },
   components: {
     Navigation,
-    NavItem
-  }
+    NavItem,
+  },
+  methods: {
+    changeCity(event, _this, obj) {
+      event.preventDefault();
+      this.currentCity = obj.item.value[0].value;
+    },
+  },
 };
 </script>
 

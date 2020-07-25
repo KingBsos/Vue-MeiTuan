@@ -1,19 +1,17 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router';
+import App from './App.vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import ajax from './utils/ajax.js';
-import routerConfig from './routerConfig.js';
+import router from './router.js';
+import "./mockData.js";
 
-Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
-const router = new VueRouter(routerConfig);
-
 new Vue({
   router,
-  render: h => h('router-view'),
+  render: h => h(App),
   data() {
     return {
       allData: {
@@ -33,14 +31,13 @@ new Vue({
         recentVisit: [],
         allCityByLetter: [],
         cityByDistrict: []
-      }
+      },
+      city: '北京'
     }
   },
-  mounted() {
+  created() {
     ajax('ksdjfksdsall').then(xhr => {
       this.allData = JSON.parse(xhr.response)
-      //console.log(this.allData.famousHostelData)
     });
   }
 }).$mount('#app')
-
