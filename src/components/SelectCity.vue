@@ -84,7 +84,7 @@ export default {
   methods: {
     changeCity(event, _this, obj) {
       event.preventDefault();
-      this.currentCity = obj.item.value[0].value;
+      this.currentCity = obj.item.value;
     },
   },
 };
@@ -120,13 +120,14 @@ export default {
   width: 40px;
   height: 40px;
   text-align: center;
-  padding-top: 9px;
+  padding-top: 7px;
+  padding-left: 1px;
   border-radius: 50%;
   background-color: rgb(255, 217, 0);
 }
 /deep/ {
   .nav-link {
-    padding: 10px 15px;
+    padding: 10px 12px;
     font-size: 14px;
     color: #666;
   }

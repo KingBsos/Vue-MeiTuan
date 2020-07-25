@@ -5,11 +5,11 @@
         v-for="(item,index) in _navList"
         :key="index"
         :class="__itemClass(index, _navList)"
-        v-on="__itemEvent({index,item})"
       >
         <i v-if="frontSymbolClass" :class="__frontSymbolClass(index)"></i>
         <template v-for="(item2,index2) in item.value">
-          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="linkClass" />
+          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="linkClass" 
+          v-on="__itemEvent({index,item: item2})"/>
           <span
             v-if="spacer && index2 < item.value.length - 1"
             :key="-index2 - 1"
@@ -46,7 +46,7 @@ export default {
   props: {
     navList: {
       type: Array,
-      require: true,
+      default: () => []
     },
     currentIndex: {
       type: Number,

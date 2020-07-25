@@ -22,6 +22,7 @@ export default {
       props: {},
       domProps: {},
       class: this.linkClass,
+      on: this.$listeners
     };
     if (!url) {
       link = "span";
@@ -44,7 +45,7 @@ export default {
       option.domProps.innerHTML = value;
     }
     return h(link, option, childElements);
-  },
+  }
 };
 </script>
 

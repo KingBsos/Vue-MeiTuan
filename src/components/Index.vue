@@ -31,8 +31,9 @@ export default {
 <style>
 .padding-x-x {
   padding: 0 60px;
+  transition: padding 0.3s;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
   .padding-x-x {
     padding: 0px;
   }
