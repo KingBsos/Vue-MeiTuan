@@ -14,21 +14,7 @@ new Vue({
   render: h => h(App),
   data() {
     return {
-      allData: {
-        headImg: '',
-        carouselpics: [],
-        advertPics: [],
-        catEyeMovieNav: [],
-        catEyeMovieData: [],
-        famousHostelNav: [],
-        guessYouLikeNav: [],
-        guessYouLikeData: [],
-        famousHostelData: [],
-        hotCity: [],
-        recentVisit: [],
-        allCityByLetter: [],
-        cityByDistrict: []
-      },
+      allData: {},
       city: '北京'
     }
   },
