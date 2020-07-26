@@ -39,7 +39,7 @@ export default {
   props: {
     headIndex: {
       type: Array,
-      required: true,
+      default: () => []
     },
     bodyData: {
       type: Array,

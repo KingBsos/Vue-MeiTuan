@@ -6,16 +6,16 @@
         <select class="vc-select mr-1em" v-model="currentProvince">
           <option disabled>请选择省份</option>
           <option
-            v-for="(item, index) in $root.allData.cityByDistrict"
+            v-for="(item, index) in cityByDistrict"
             :key="index"
             :value="index"
           >{{ item.province }}</option>
         </select>
         <select class="vc-select mr-3em" v-model="currentCity">
           <option disabled>请选择城市</option>
-          <template v-if="$root.allData.cityByDistrict[currentProvince]">
+          <template v-if="cityByDistrict[currentProvince]">
             <option
-              v-for="(item, index) in $root.allData.cityByDistrict[currentProvince].sub"
+              v-for="(item, index) in cityByDistrict[currentProvince].sub"
               :key="index"
             >{{ item.city }}</option>
           </template>
@@ -26,24 +26,24 @@
       <hr />
       <div>
         <h3 class="d-ib vc-title">热门城市：</h3>
-        <Navigation class="d-ib" :navList="$root.allData.hotCity" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="hotCity" linkClass="nav-link" />
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">最近访问：</h3>
-        <Navigation class="d-ib" :navList="$root.allData.recentVisit" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="recentVisit" linkClass="nav-link" />
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">按拼音首字母选择：</h3>
         <NavItem
-          v-for="(item, index) in $root.allData.allCityByLetter"
+          v-for="(item, index) in allCityByLetter"
           :key="index"
           :item="{value: item.name, url: `#${item.name + index}`}"
           linkClass="nav-link"
         />
       </div>
-      <div class="d-flex" v-for="(item, index) in $root.allData.allCityByLetter" :key="index">
+      <div class="d-flex" v-for="(item, index) in allCityByLetter" :key="index">
         <span :id="`${item.name + index}`" class="letter-head d-ib">{{ item.name }}</span>
         <div class="d-ib flex-1">
           <Navigation
@@ -61,6 +61,7 @@
 <script>
 import Navigation from "./Navigation.vue";
 import NavItem from "./NavItem.vue";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -86,6 +87,14 @@ export default {
       event.preventDefault();
       this.currentCity = obj.item.value;
     },
+  },
+  computed: {
+    ...mapState({
+      cityByDistrict: (state) => state.allDisplayData.cityByDistrict,
+      hotCity: (state) => state.allDisplayData.hotCity,
+      allCityByLetter: (state) => state.allDisplayData.allCityByLetter,
+      recentVisit: (state) => state.allDisplayData.recentVisit,
+    }),
   },
 };
 </script>

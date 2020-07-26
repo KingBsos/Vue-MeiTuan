@@ -45,7 +45,8 @@ export default {
   },
   props: {
     navList: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     currentIndex: {
       type: Number,

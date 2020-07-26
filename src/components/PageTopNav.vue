@@ -3,7 +3,7 @@
     <Weather :city="$root.city" />
     <!-- <Navigation class="nav-init" :navList="RowNavData.navList"/> -->
     <Navigation
-      :navList="$root.allData.topNav"
+      :navList="topNav"
       itemClass="nav-item"
       linkClass="nav-link"
       childNavClass="child-nav"
@@ -47,12 +47,17 @@
 <script>
 import Weather from "./Weather.vue";
 import Navigation from "./Navigation.vue";
-
+import {mapState} from 'vuex';
 export default {
   components: {
     Weather,
     Navigation,
   },
+  computed: {
+    ...mapState({
+      topNav: state => state.allDisplayData.topNav
+    })
+  }
 };
 </script>
 

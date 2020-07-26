@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const routes = {
+const router = new VueRouter({
     mode: 'history',
     routes: [
         {
@@ -28,7 +28,13 @@ const routes = {
             path: '/register',
             component: () => import('./components/register/Register.vue')
         }
-    ]
-};
+    ],
+    scrollBehavior() {
+        return {
+            x: 0,
+            y: 0
+        }
+    }
+});
 
-export default new VueRouter(routes);
+export default router;
