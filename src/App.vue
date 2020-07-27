@@ -31,7 +31,7 @@ export default {
   z-index: 1000;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(94, 94, 94, 0.774);
+  background-color: rgba(134, 134, 134, 0.774);
 }
 .full-model-enter,
 .full-model-leave-to {

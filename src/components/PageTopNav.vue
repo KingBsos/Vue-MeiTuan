@@ -47,17 +47,15 @@
 <script>
 import Weather from "./Weather.vue";
 import Navigation from "./Navigation.vue";
-import {mapState} from 'vuex';
+import { mapState } from "vuex";
 export default {
   components: {
     Weather,
     Navigation,
   },
   computed: {
-    ...mapState({
-      topNav: state => state.allDisplayData.topNav
-    })
-  }
+    ...mapState("allDisplayData", ["topNav"]),
+  },
 };
 </script>
 

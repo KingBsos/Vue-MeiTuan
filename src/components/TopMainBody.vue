@@ -99,13 +99,13 @@ export default {
     CoverCard,
   },
   computed: {
-    ...mapState({
-      allNav: (state) => state.allDisplayData.allNav,
-      advertPics: (state) => state.allDisplayData.advertPics,
-      headImg: (state) => state.allDisplayData.headImg,
-      rightTopNav: (state) => state.allDisplayData.rightTopNav,
-      carouselPics: (state) => state.allDisplayData.carouselPics,
-    }),
+    ...mapState("allDisplayData", [
+      "allNav",
+      "advertPics",
+      "headImg",
+      "rightTopNav",
+      "carouselPics",
+    ]),
   },
 };
 </script>

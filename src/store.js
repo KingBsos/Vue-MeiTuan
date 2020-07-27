@@ -7,8 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     strict: true,
     state: {
-        loading: false,
-        allDisplayData: {}
+        loading: false
     },
     mutations: {
         loadDisData(state, payload) {
@@ -25,6 +24,12 @@ const store = new Vuex.Store({
                 commit('loadDisData', JSON.parse(xhr.response));
                 commit('changeLoadState', false);
             });
+        }
+    },
+    modules: {
+        allDisplayData: {
+            namespaced: true,
+            state: {}
         }
     }
 });

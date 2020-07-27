@@ -24,9 +24,10 @@ new Vue({
     ...mapActions(['loadDisData'])
   },
   created() {
-    this.loadDisData();
-  },
-  mounted() {
-    setTimeout(()=>{this.rended = true}, 1000);
+    this.loadDisData().then(() => {
+      this.$nextTick(() => {
+        setTimeout(()=> this.rended = true, 500);
+      });
+    });
   }
 }).$mount('#app')

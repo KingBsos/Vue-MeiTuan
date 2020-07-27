@@ -78,14 +78,14 @@ export default {
     CoverCard,
   },
   computed: {
-    ...mapState({
-      catEyeMovieNav: (state) => state.allDisplayData.catEyeMovieNav,
-      catEyeMovieData: (state) => state.allDisplayData.catEyeMovieData,
-      famousHostelNav: (state) => state.allDisplayData.famousHostelNav,
-      famousHostelData: (state) => state.allDisplayData.famousHostelData,
-      guessYouLikeNav: (state) => state.allDisplayData.guessYouLikeNav,
-      guessYouLikeData: (state) => state.allDisplayData.guessYouLikeData,
-    }),
+    ...mapState("allDisplayData", [
+      "catEyeMovieNav",
+      "catEyeMovieData",
+      "famousHostelNav",
+      "famousHostelData",
+      "guessYouLikeNav",
+      "guessYouLikeData",
+    ]),
   },
 };
 </script>

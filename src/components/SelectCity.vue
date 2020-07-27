@@ -89,12 +89,12 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      cityByDistrict: (state) => state.allDisplayData.cityByDistrict,
-      hotCity: (state) => state.allDisplayData.hotCity,
-      allCityByLetter: (state) => state.allDisplayData.allCityByLetter,
-      recentVisit: (state) => state.allDisplayData.recentVisit,
-    }),
+    ...mapState("allDisplayData", [
+      "cityByDistrict",
+      "hotCity",
+      "allCityByLetter",
+      "recentVisit",
+    ]),
   },
 };
 </script>
