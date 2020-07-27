@@ -53,8 +53,8 @@
               <div class="user-info-body">
                 <img :src="headImg" />
                 <p>KingBsos</p>
-                <a class="button" href="/register">注册</a>
-                <a class="button" href="/signin">立即登录</a>
+                <router-link class="button" to="/register">注册</router-link>
+                <router-link class="button" to="/signin">立即登录</router-link>
               </div>
             </CoverCard>
           </div>
