@@ -16,12 +16,11 @@ new Vue({
   render: h => h(App),
   data() {
     return {
-      city: '北京',
       rended: false
     }
   },
   methods: {
-    ...mapActions(['loadDisData'])
+    ...mapActions('allDisplayData', ['loadDisData'])
   },
   created() {
     this.loadDisData().then(() => {

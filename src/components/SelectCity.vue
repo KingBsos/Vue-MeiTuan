@@ -21,17 +21,17 @@
           </template>
         </select>
         <h3 class="d-ib vc-title">直接搜索：</h3>
-        <input class="vc-input" type="text" placeholder="请输入城市中文或拼音" />
+        <input class="vc-input" type="text" v-model="searchValue" placeholder="请输入城市中文或拼音" />
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">热门城市：</h3>
-        <Navigation class="d-ib" :navList="hotCity" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="hotCity" linkClass="nav-link" :itemEvent="{click: changeCity}"/>
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">最近访问：</h3>
-        <Navigation class="d-ib" :navList="recentVisit" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="recentVisit" linkClass="nav-link" :itemEvent="{click: changeCity}"/>
       </div>
       <hr />
       <div>
@@ -61,12 +61,14 @@
 <script>
 import Navigation from "./Navigation.vue";
 import NavItem from "./NavItem.vue";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+import { debounce } from '../utils/custom.js';
 export default {
   data() {
     return {
       currentProvince: "请选择省份",
       currentCity: "请选择城市",
+      searchValue: ''
     };
   },
   watch: {
@@ -74,19 +76,27 @@ export default {
       this.currentCity = "请选择城市";
     },
     currentCity(value) {
-      this.$root.city = value;
+      this._changeCity(value);
       this.$router.push(`/`);
     },
+    searchValue(value) {
+      this.search_debounced(value);
+    }
   },
   components: {
     Navigation,
     NavItem,
   },
   methods: {
+    ...mapMutations({_changeCity: 'changeCity'}),
     changeCity(event, _this, obj) {
       event.preventDefault();
-      this.currentCity = obj.item.value;
+      this._changeCity(obj.item.value);
+      this.$router.push(`/`);
     },
+    search(value) {
+      return value;
+    }
   },
   computed: {
     ...mapState("allDisplayData", [
@@ -96,6 +106,9 @@ export default {
       "recentVisit",
     ]),
   },
+  created() {
+    this.search_debounced = debounce(this.search, 500);
+  }
 };
 </script>
 
