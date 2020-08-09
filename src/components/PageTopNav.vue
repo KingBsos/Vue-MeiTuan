@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <Weather :city="city" />
+    <Weather :city="$root.city" />
     <!-- <Navigation class="nav-init" :navList="RowNavData.navList"/> -->
     <Navigation
-      :navList="$root.allData.topNav"
+      :navList="topNav"
       itemClass="nav-item"
       linkClass="nav-link"
       childNavClass="child-nav"
@@ -14,52 +14,28 @@
           <div>
             <h3 class="menu-item-header">酒店旅游</h3>
             <div class="menu-item-body">
-              <Navigation
-                :vertical="true"
-                :navList="childNav[0]"
-                linkClass="nav-child-link"
-              />
-              <Navigation
-                :vertical="true"
-                :navList="childNav[1]"
-                linkClass="nav-child-link"
-              />
-              <Navigation
-                :vertical="true"
-                :navList="childNav[2]"
-                linkClass="nav-child-link"
-              />
+              <Navigation :vertical="true" :navList="childNav[0]" linkClass="nav-child-link" />
+              <Navigation :vertical="true" :navList="childNav[1]" linkClass="nav-child-link" />
+              <Navigation :vertical="true" :navList="childNav[2]" linkClass="nav-child-link" />
             </div>
           </div>
           <div>
             <h3 class="menu-item-header">吃美食</h3>
             <div class="menu-item-body">
-              <Navigation
-                :vertical="true"
-                :navList="childNav[3]"
-                linkClass="nav-child-link"
-              />
-              <Navigation
-                :vertical="true"
-                :navList="childNav[4]"
-                linkClass="nav-child-link"
-              />
+              <Navigation :vertical="true" :navList="childNav[3]" linkClass="nav-child-link" />
+              <Navigation :vertical="true" :navList="childNav[4]" linkClass="nav-child-link" />
             </div>
           </div>
           <div>
             <h3 class="menu-item-header">看电影</h3>
             <div class="menu-item-body">
-              <Navigation
-                :vertical="true"
-                :navList="childNav[5]"
-                linkClass="nav-child-link"
-              />
+              <Navigation :vertical="true" :navList="childNav[5]" linkClass="nav-child-link" />
             </div>
           </div>
           <div>
             <h3 class="menu-item-header">手机应用</h3>
             <div class="menu-item-body">
-              <Navigation :navList="childNav[6]" linkClass="img-link"/>
+              <Navigation :navList="childNav[6]" linkClass="img-link" />
             </div>
           </div>
         </div>
@@ -71,16 +47,15 @@
 <script>
 import Weather from "./Weather.vue";
 import Navigation from "./Navigation.vue";
-
+import { mapState } from "vuex";
 export default {
-  props: {
-    city: String
-  },
-  computed: {},
   components: {
     Weather,
-    Navigation
-  }
+    Navigation,
+  },
+  computed: {
+    ...mapState("allDisplayData", ["topNav"]),
+  },
 };
 </script>
 
@@ -117,7 +92,7 @@ export default {
     right: 0;
     z-index: -1;
   }
-  .img-link img{
+  .img-link img {
     margin: 5px 10px;
     width: 60px;
     height: 60px;

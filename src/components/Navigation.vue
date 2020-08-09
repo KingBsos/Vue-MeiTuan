@@ -5,11 +5,11 @@
         v-for="(item,index) in _navList"
         :key="index"
         :class="__itemClass(index, _navList)"
-        v-on="__itemEvent(index)"
       >
         <i v-if="frontSymbolClass" :class="__frontSymbolClass(index)"></i>
         <template v-for="(item2,index2) in item.value">
-          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="linkClass" />
+          <NavItem :key="index2" :item="item2" :useRouter="useRouter" :linkClass="linkClass" 
+          v-on="__itemEvent({index,item: item2})"/>
           <span
             v-if="spacer && index2 < item.value.length - 1"
             :key="-index2 - 1"
@@ -41,74 +41,74 @@ import NavItem from "./NavItem.vue";
 export default {
   name: "Navigation",
   components: {
-    NavItem
+    NavItem,
   },
   props: {
     navList: {
       type: Array,
-      require: true
+      default: () => []
     },
     currentIndex: {
-      type: Number
+      type: Number,
     },
     useRouter: {
-      type: Boolean
+      type: Boolean,
     },
     vertical: {
       type: Boolean,
-      default: false
+      default: false,
     },
     multiLine: {
       type: Boolean,
-      default: false
+      default: false,
     },
     spacer: {
-      type: String
+      type: String,
     },
     postSymbol: {
-      type: String
+      type: String,
     },
     titleClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     tailClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     itemClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     linkClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     spacerClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     frontSymbolClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     extraFrontSymbolClass: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     postSymbolClass: {
-      type: String
+      type: String,
     },
     childNavClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     childItemClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     childLinkClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     itemEvent: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     _navList() {
-      return this.navList.map(item => {
+      return this.navList.map((item) => {
         let { type, value, url, childNav, ...obj } = item;
         if (!Array.isArray(value)) value = [{ type, value, url }];
         if (childNav && !Array.isArray(childNav[0])) childNav = [[...childNav]];
@@ -140,10 +140,10 @@ export default {
       return this.childLinkClass || this.linkClass;
     },
     hasChildMap() {
-      return this.navList.map(item => {
+      return this.navList.map((item) => {
         return item.childNav && item.childNav.length != 0 ? true : false;
       });
-    }
+    },
   },
   methods: {
     __itemClass(index, arr) {
@@ -161,20 +161,20 @@ export default {
           .concat(this.frontSymbolClass)
           .concat(this.extraFrontSymbolClass[index]);
     },
-    __itemEvent(index) {
+    __itemEvent(obj) {
       let listener = this.itemEvent;
       let newListener = {};
       for (let i in listener) {
         Object.defineProperty(newListener, i, {
-          value: function(event) {
-            listener[i]({ index }, event);
+          value: function (event) {
+            listener[i](event, this, obj);
           },
-          enumerable: true
+          enumerable: true,
         });
       }
       return newListener;
-    }
-  }
+    },
+  },
 };
 </script>
 

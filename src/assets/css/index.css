@@ -95,6 +95,9 @@ a:hover {
 .text-right {
   text-align: right;
 }
+.text-align-right {
+  text-align: right;
+}
 .text-overflow {
   white-space: nowrap;
   overflow: hidden;

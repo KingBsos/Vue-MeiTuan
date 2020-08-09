@@ -6,47 +6,52 @@
         <select class="vc-select mr-1em" v-model="currentProvince">
           <option disabled>请选择省份</option>
           <option
-            v-for="(item, index) in $root.allData.cityByDistrict"
+            v-for="(item, index) in cityByDistrict"
             :key="index"
             :value="index"
           >{{ item.province }}</option>
         </select>
         <select class="vc-select mr-3em" v-model="currentCity">
           <option disabled>请选择城市</option>
-          <template v-if="$root.allData.cityByDistrict[currentProvince]">
-          <option
-            v-for="(item, index) in $root.allData.cityByDistrict[currentProvince].sub"
-            :key="index"
-          >{{ item.city }}</option>
+          <template v-if="cityByDistrict[currentProvince]">
+            <option
+              v-for="(item, index) in cityByDistrict[currentProvince].sub"
+              :key="index"
+            >{{ item.city }}</option>
           </template>
         </select>
         <h3 class="d-ib vc-title">直接搜索：</h3>
-        <input class="vc-input" type="text" placeholder="请输入城市中文或拼音" />
+        <input class="vc-input" type="text" v-model="searchValue" placeholder="请输入城市中文或拼音" />
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">热门城市：</h3>
-        <Navigation class="d-ib" :navList="$root.allData.hotCity" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="hotCity" linkClass="nav-link" :itemEvent="{click: changeCity}"/>
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">最近访问：</h3>
-        <Navigation class="d-ib" :navList="$root.allData.recentVisit" linkClass="nav-link" />
+        <Navigation class="d-ib" :navList="recentVisit" linkClass="nav-link" :itemEvent="{click: changeCity}"/>
       </div>
       <hr />
       <div>
         <h3 class="d-ib vc-title">按拼音首字母选择：</h3>
         <NavItem
-          v-for="(item, index) in $root.allData.allCityByLetter"
+          v-for="(item, index) in allCityByLetter"
           :key="index"
           :item="{value: item.name, url: `#${item.name + index}`}"
           linkClass="nav-link"
         />
       </div>
-      <div class="d-flex" v-for="(item, index) in $root.allData.allCityByLetter" :key="index">
+      <div class="d-flex" v-for="(item, index) in allCityByLetter" :key="index">
         <span :id="`${item.name + index}`" class="letter-head d-ib">{{ item.name }}</span>
         <div class="d-ib flex-1">
-          <Navigation :navList="item.value" :multiLine="true" linkClass="nav-link" />
+          <Navigation
+            :navList="item.value"
+            :multiLine="true"
+            linkClass="nav-link"
+            :itemEvent="{click: changeCity}"
+          />
         </div>
       </div>
     </div>
@@ -56,24 +61,53 @@
 <script>
 import Navigation from "./Navigation.vue";
 import NavItem from "./NavItem.vue";
+import { mapState, mapMutations } from "vuex";
+import { debounce } from '../utils/custom.js';
 export default {
   data() {
     return {
       currentProvince: "请选择省份",
-      currentCity: "请选择城市"
+      currentCity: "请选择城市",
+      searchValue: ''
     };
   },
   watch: {
     currentProvince() {
-      this.currentCity = '请选择城市';
+      this.currentCity = "请选择城市";
     },
     currentCity(value) {
-      this.$router.push(`/${value}/index`);
+      this._changeCity(value);
+      this.$router.push(`/`);
+    },
+    searchValue(value) {
+      this.search_debounced(value);
     }
   },
   components: {
     Navigation,
-    NavItem
+    NavItem,
+  },
+  methods: {
+    ...mapMutations({_changeCity: 'changeCity'}),
+    changeCity(event, _this, obj) {
+      event.preventDefault();
+      this._changeCity(obj.item.value);
+      this.$router.push(`/`);
+    },
+    search(value) {
+      return value;
+    }
+  },
+  computed: {
+    ...mapState("allDisplayData", [
+      "cityByDistrict",
+      "hotCity",
+      "allCityByLetter",
+      "recentVisit",
+    ]),
+  },
+  created() {
+    this.search_debounced = debounce(this.search, 500);
   }
 };
 </script>
@@ -108,13 +142,14 @@ export default {
   width: 40px;
   height: 40px;
   text-align: center;
-  padding-top: 9px;
+  padding-top: 7px;
+  padding-left: 1px;
   border-radius: 50%;
   background-color: rgb(255, 217, 0);
 }
 /deep/ {
   .nav-link {
-    padding: 10px 15px;
+    padding: 10px 12px;
     font-size: 14px;
     color: #666;
   }

@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div v-if="allNav && advertPics" class="container">
     <div class="body-left">
       <div class="all-nav">全部分类</div>
 
       <Navigation
         class="position-relative"
-        :navList="$root.allData.allNav"
+        :navList="allNav"
         :vertical="true"
         spacer="/"
         postSymbol=">"
@@ -18,7 +18,7 @@
         'icon-shoucang','icon-tupian','icon-zuanshi','icon-zhibo','icon-qianbao','icon-rili']"
         childNavClass="child-nav-style"
       >
-        <template #[i-1]="{childNav, current}" v-for="i in $root.allData.allNav.length">
+        <template #[i-1]="{childNav, current}" v-for="i in allNav.length">
           <div :key="i">
             <div v-for="(item, index) in childNav" :key="index">
               <h6 class="inner-head">
@@ -40,34 +40,34 @@
         <div class="advert-top">
           <div class="carousel-wrapper">
             <el-carousel class="h-100" height="100%">
-              <el-carousel-item v-for="(item,index) in $root.allData.carouselPics" :key="index">
+              <el-carousel-item v-for="(item,index) in carouselPics" :key="index">
                 <img class="h-100" :src="item" />
               </el-carousel-item>
             </el-carousel>
           </div>
           <div class="advert-top-1">
-            <CoverCard :imgUrl="$root.allData.advertPics[2]"></CoverCard>
+            <CoverCard :imgUrl="advertPics[2]"></CoverCard>
           </div>
           <div class="user-info">
             <CoverCard>
               <div class="user-info-body">
-                <img :src="$root.allData.headImg" />
+                <img :src="headImg" />
                 <p>KingBsos</p>
-                <a class="button" href="/register">注册</a>
-                <a class="button" href="/signin">立即登录</a>
+                <router-link class="button" to="/register">注册</router-link>
+                <router-link class="button" to="/signin">立即登录</router-link>
               </div>
             </CoverCard>
           </div>
         </div>
         <div class="advert-bottom">
           <div class="advert-bottom-1">
-            <CoverCard :imgUrl="$root.allData.advertPics[0]"></CoverCard>
+            <CoverCard :imgUrl="advertPics[0]"></CoverCard>
           </div>
           <div class="advert-bottom-2">
-            <CoverCard :imgUrl="$root.allData.advertPics[1]"></CoverCard>
+            <CoverCard :imgUrl="advertPics[1]"></CoverCard>
           </div>
           <div class="advert-bottom-3">
-            <CoverCard :imgUrl="$root.allData.advertPics[3]"></CoverCard>
+            <CoverCard :imgUrl="advertPics[3]"></CoverCard>
           </div>
           <div class="qr-code">
             <CoverCard>
@@ -83,11 +83,7 @@
         </div>
       </div>
       <div class="body-right-top">
-        <Navigation
-          :navList="$root.allData.rightTopNav"
-          itemClass="itemStyle"
-          linkClass="linkStyle"
-        />
+        <Navigation :navList="rightTopNav" itemClass="itemStyle" linkClass="linkStyle" />
       </div>
     </div>
   </div>
@@ -96,16 +92,25 @@
 <script>
 import Navigation from "./Navigation.vue";
 import CoverCard from "./CoverCard.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     Navigation,
-    CoverCard
-  }
+    CoverCard,
+  },
+  computed: {
+    ...mapState("allDisplayData", [
+      "allNav",
+      "advertPics",
+      "headImg",
+      "rightTopNav",
+      "carouselPics",
+    ]),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/index.css";
 @import "../assets/css/font/iconfont.css";
 .all-nav {
   height: 58px;

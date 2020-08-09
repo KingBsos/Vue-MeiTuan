@@ -35,7 +35,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/index.css";
 .container {
   position: relative;
   background-size: 100%;

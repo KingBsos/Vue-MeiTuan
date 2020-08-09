@@ -3,15 +3,15 @@ export default {
   props: {
     item: {
       type: Object,
-      require: true
+      require: true,
     },
     linkClass: {
-      type: [String, Array]
+      type: [String, Array],
     },
     useRouter: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   render(h) {
     let { type, value, url } = this.item;
@@ -21,7 +21,8 @@ export default {
       attrs: {},
       props: {},
       domProps: {},
-      class: this.linkClass
+      class: this.linkClass,
+      on: this.$listeners
     };
     if (!url) {
       link = "span";
@@ -36,8 +37,8 @@ export default {
       childElements.push(
         h("img", {
           attrs: {
-            src: value
-          }
+            src: value,
+          },
         })
       );
     } else {

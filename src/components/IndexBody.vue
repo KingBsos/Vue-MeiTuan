@@ -1,12 +1,11 @@
 <template>
   <div>
     <TopMainBody />
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-danger head-index-nav"
-      :headIndex="$root.allData.catEyeMovieNav"
-      :bodyData="$root.allData.catEyeMovieData"
+      :headIndex="catEyeMovieNav"
+      :bodyData="catEyeMovieData"
       :row="1"
       :column="5"
       subitemClass="movie-card"
@@ -22,13 +21,12 @@
         </a>
       </template>
     </HeadIndexNav>
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-warning head-index-nav"
       subitemClass="famous-card"
-      :headIndex="$root.allData.famousHostelNav"
-      :bodyData="$root.allData.famousHostelData"
+      :headIndex="famousHostelNav"
+      :bodyData="famousHostelData"
     >
       <template #default="{data: {name, poster, comment, price, location, detail, url}}">
         <a class="wrapper-a cursor-pointer" :href="url">
@@ -41,12 +39,11 @@
         </a>
       </template>
     </HeadIndexNav>
-
     <HeadIndexNav
       class="pb-2em"
       headClass="bg-info head-index-nav"
-      :headIndex="$root.allData.guessYouLikeNav"
-      :bodyData="$root.allData.guessYouLikeData"
+      :headIndex="guessYouLikeNav"
+      :bodyData="guessYouLikeData"
       :row="3"
       :column="5"
     >
@@ -73,12 +70,23 @@
 import TopMainBody from "./TopMainBody.vue";
 import HeadIndexNav from "./HeadIndexNav.vue";
 import CoverCard from "./CoverCard.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     TopMainBody,
     HeadIndexNav,
-    CoverCard
-  }
+    CoverCard,
+  },
+  computed: {
+    ...mapState("allDisplayData", [
+      "catEyeMovieNav",
+      "catEyeMovieData",
+      "famousHostelNav",
+      "famousHostelData",
+      "guessYouLikeNav",
+      "guessYouLikeData",
+    ]),
+  },
 };
 </script>
 

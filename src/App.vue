@@ -1,70 +1,43 @@
 <template>
-  <div id="app">
-    <div class="shadow">
-      <div class="padding-x-x top">
-        <PageTopNav :city="city"/>
+  <div class="position-relative">
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <transition appear name="full-model">
+      <div class="full-model" v-if="loading || !$root.rended">
       </div>
-      <div class="padding-x-x top2">
-        <HeaderSearch />
-      </div>
-    </div>
-    <div class="padding-x-x layout-main-body">
-      <keep-alive>
-      <router-view v-model="city"></router-view>
-      </keep-alive>
-    </div>
-    <Footer />
+    </transition>
   </div>
 </template>
 
 <script>
-import PageTopNav from "./components/PageTopNav.vue";
-import HeaderSearch from "./components/HeaderSearch.vue";
-import Footer from "./components/Footer.vue";
-import './mockData.js';
+import { mapState } from "vuex";
 export default {
-  name: "App",
-  props: {
-    city: {
-      type: String,
-      default: '北京'
-    }
-  },
-  data() {
-    return {
-      
-    };
-  },
-  components: {
-    PageTopNav,
-    HeaderSearch,
-    Footer
+  computed: {
+    ...mapState(["loading"]),
   }
 };
 </script>
 
-<style>
-@import './assets/css/index.css';
-.padding-x-x {
-  padding: 0 60px;
+<style scoped>
+@import "./assets/css/index.css";
+.position-relative {
+  position: relative;
 }
-@media (max-width: 1000px) {
-.padding-x-x {
-  padding: 0px;
+.full-model {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(134, 134, 134, 0.774);
 }
+.full-model-enter,
+.full-model-leave-to {
+  opacity: 0;
 }
-.shadow {
-  box-shadow: 0 0 20px #ccc;
-}
-
-.top {
-  background-color: #f8f8f8;
-}
-.top2 {
-  padding-bottom: 50px;
-}
-.layout-main-body {
-  padding-top: 15px;
-  background-color: rgba(235, 235, 235, 0.829);
+.full-model-enter-active,
+.full-model-leave-active {
+  transition: all .5s;
 }
 </style>
