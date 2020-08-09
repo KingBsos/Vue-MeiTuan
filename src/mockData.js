@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-Mock.mock(/.*/, {
+Mock.mock(/alldata/, {
     'topNav': [
         {
             value: '我的美团',

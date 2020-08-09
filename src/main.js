@@ -37,7 +37,7 @@ new Vue({
     }
   },
   mounted() {
-    ajax('ksdjfksdsall').then(xhr => {
+    ajax('alldata').then(xhr => {
       this.allData = JSON.parse(xhr.response)
       //console.log(this.allData.famousHostelData)
     });
