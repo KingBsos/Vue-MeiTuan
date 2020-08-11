@@ -91,3 +91,7 @@ Mock.mock(/alldata/, {
     'allCityByLetter|26': [{ 'name': '@character(upper)', 'value|20-30': [{ 'value': '@city', 'url': '/' + Mock.mock({ 'data': '@city' }).data + '/index' }] }],
     'cityByDistrict|10': [{ 'province': '@province', 'sub|10-20': [{ 'city': '@city' }] }]
 });
+Mock.mock(/login/, {
+    'name': 'KingBsos',
+    'img': '@dataImage(50x50)'
+});

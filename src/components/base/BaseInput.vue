@@ -1,6 +1,6 @@
 <template>
   <div class="vm-container-input">
-      <input v-bind="$attrs" v-on="$listeners" class="vm-input">
+      <input v-bind="$attrs" v-on="listeners.other" @click="$emit('input', $event.target.value)" class="vm-input">
       <span class="vm-icon" v-if="$scopedSlots.default">
         <slot></slot>
       </span>
@@ -9,7 +9,13 @@
 
 <script>
 export default {
-    inheritAttrs: false
+    inheritAttrs: false,
+    computed: {
+        listeners() {
+            let {input, change, ...other} = this.$listeners;
+            return {input, change, other};
+        }
+    }
 }
 </script>
 

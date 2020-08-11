@@ -51,10 +51,10 @@
           <div class="user-info">
             <CoverCard>
               <div class="user-info-body">
-                <img :src="headImg" />
-                <p>KingBsos</p>
-                <router-link class="button" to="/register">注册</router-link>
-                <router-link class="button" to="/signin">立即登录</router-link>
+                <img :src="img ? img : headImg" />
+                <p>{{ name ? name : '请登录' }}</p>
+                <router-link v-if="!name" class="button" to="/register">注册</router-link>
+                <router-link v-if="!name" class="button" to="/signin">立即登录</router-link>
               </div>
             </CoverCard>
           </div>
@@ -93,6 +93,7 @@
 import Navigation from "./Navigation.vue";
 import CoverCard from "./CoverCard.vue";
 import { mapState } from "vuex";
+
 export default {
   components: {
     Navigation,
@@ -106,7 +107,11 @@ export default {
       "rightTopNav",
       "carouselPics",
     ]),
+    ...mapState('loginInfo', ['name', 'img'])
   },
+  activated() {
+    console.log('activated', this.name)
+  }
 };
 </script>
 

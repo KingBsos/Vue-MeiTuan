@@ -4,8 +4,7 @@
       <router-view></router-view>
     </keep-alive>
     <transition appear name="full-model">
-      <div class="full-model" v-if="loading || !$root.rended">
-      </div>
+      <div class="full-model" v-if="loading || !$root.rended"></div>
     </transition>
   </div>
 </template>

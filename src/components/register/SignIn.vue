@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="left">
-        <router-link to="/index">
+        <router-link to="/">
             <img class="logo" src="https://s0.meituan.net/bs/file/?f=fe-sso-fs:build/assets/logo.6a89007.png">
         </router-link>
         <img class="logo-pic" src="https://s0.meituan.net/bs/file/?f=fe-sso-fs:build/page/static/banner/www.jpg">
@@ -25,7 +25,7 @@
                     <span class="mL-_5R icon">⚛</span>
                 </BaseInput>
                 <a class="forget" href="#">忘记密码?</a>
-                <button class="login-button" @click="loginHandle">登陆</button>
+                <button class="login-button" @click="_loginHandle">登陆</button>
                 <p>还没有账号? <a href="#">免费注册</a></p>
                 <div class="oauth">
                     <span class="oauth-title">用合作网站账号登录</span>
@@ -36,37 +36,47 @@
                 </div>
             </div>
       </div>
+      <SlidingVerification v-if="authenticate" @success="loginHandle" @cancel="authenticate = false"/>
     </div>
-  </div>
 </template>
 
 <script>
 import BaseInput from '../base/BaseInput.vue';
-import axios from 'axios';
+import SlidingVerification from '../base/SlidingVerification.vue';
+import { mapActions } from 'vuex';
 
 export default {
     data() {
         return {
             accountNum: '',
-            password: ''
+            password: '',
+            authenticate: false
         }
     },
     components: {
-        BaseInput
+        BaseInput, SlidingVerification
     },
     methods: {
+        _loginHandle() {
+            this.authenticate = true;
+        },
         loginHandle() {
-            let {accountNum, password} = this;
-            axios.get(`http://open.duyiedu.com/api/meituan/login?userName=${accountNum}&password=${password}&appkey=KingBsos_1586913878181`).then(({data}) => {
-                console.log(data)
+            let {accountNum, password, login} = this;
+            login({
+                accountNum, password
+            }).then((bool) => {
+                this.authenticate = false;
+                if(bool) this.$router.push('/');
             });
-        }
+        },
+        ...mapActions('loginInfo', ['login'])
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
+    position: relative;
     overflow: hidden;
     padding: 0px 170px;
 }

@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import ajax from './utils/ajax.js';
+import axios from 'axios';
+
+window.axios = axios;
 
 Vue.use(Vuex);
 
@@ -41,7 +44,7 @@ const store = new Vuex.Store({
             actions: {
                 loadDisData({ commit }) {
                     commit('changeLoadState', true, {root: true});
-                    return ajax('ksdjfksdsall').then(xhr => {
+                    return ajax('alldata').then(xhr => {
                         commit('loadDisData', JSON.parse(xhr.response));
                         commit('changeLoadState', false, {root: true});
                     });
@@ -50,7 +53,22 @@ const store = new Vuex.Store({
         },
         loginInfo: {
             namespaced: true,
-            state: {}
+            state: () => ({}),
+            mutations: {
+                loadInfo(state, payload) {
+                    Object.assign(state, payload);
+                }
+            },
+            actions: {
+                login({ commit }) {
+                    //console.log(info);
+                    return axios.get('login').then(({data}) => {
+                        //console.log(data)
+                        commit('loadInfo', data)
+                        return true;
+                    }).catch(error => {console.log(error);return false;});
+                }
+            }
         }
     }
 });

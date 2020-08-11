@@ -9,7 +9,9 @@
       </div>
     </div>
     <div class="padding-x-x layout-main-body">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
     <Footer />
   </div>
