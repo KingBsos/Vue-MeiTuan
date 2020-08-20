@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     ...mapState("allDisplayData", ["topNav"]),
-  },
+  }
 };
 </script>
 

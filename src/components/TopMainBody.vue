@@ -108,9 +108,6 @@ export default {
       "carouselPics",
     ]),
     ...mapState('loginInfo', ['name', 'img'])
-  },
-  activated() {
-    console.log('activated', this.name)
   }
 };
 </script>

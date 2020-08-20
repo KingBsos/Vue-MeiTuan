@@ -35,7 +35,24 @@ const store = new Vuex.Store({
     modules: {
         allDisplayData: {
             namespaced: true,
-            state: () => {},
+            state: () => ({
+                topNav: [],
+                allNav: [],
+                rightTopNav: [],
+                headImg: '',
+                carouselPics: [],
+                advertPics: [],
+                catEyeMovieNav: [],
+                catEyeMovieData: [],
+                famousHostelNav: [],
+                guessYouLikeNav: [],
+                guessYouLikeData: [],
+                famoushostelData: [],
+                hotCity: [],
+                recentVisit: [],
+                allCityByLetter: [],
+                cityByDistrict: []
+            }),
             mutations: {
                 loadDisData(state, payload) {
                     Object.assign(state, payload);
