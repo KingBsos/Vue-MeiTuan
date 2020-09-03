@@ -1,5 +1,8 @@
 # my-project-vue
 
+```
+git clone git@github.com:kingbsos/p --recursive
+```
 ## Project setup
 ```
 npm install
