@@ -28,7 +28,10 @@ const store = new Vuex.Store({
             state.loading = bool;
         },
         changeCity(state, city) {
-            state.city = city;
+            state.city = {
+                name: city,
+                nearCity: []
+            };
         }
     },
     actions: {},

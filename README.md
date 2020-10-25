@@ -3,6 +3,7 @@
 ```
 git clone git@github.com:kingbsos/p --recursive
 ```
+![alt index](./index.png)
 ## Project setup
 ```
 npm install
